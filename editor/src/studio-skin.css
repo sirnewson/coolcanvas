@@ -336,14 +336,14 @@ html:root {
   color: var(--ink-2);
 }
 
-@media (prefers-color-scheme: dark) {
-  html:root[data-theme="dark"] {
-    --surround: #191a17;
-    --panel: #1d1e1b;
-    --panel-bar: #212320;
-    --rule: #2f3029;
-    --rule-strong: #414239;
-  }
+/* The app's own dark theme is a choice in the interface, not the operating
+   system's preference, so these follow data-theme and nothing else. */
+html:root[data-theme="dark"] {
+  --surround: #191a17;
+  --panel: #1d1e1b;
+  --panel-bar: #212320;
+  --rule: #2f3029;
+  --rule-strong: #414239;
 }
 
 /* ------------------------------------------------------- panel controls */
