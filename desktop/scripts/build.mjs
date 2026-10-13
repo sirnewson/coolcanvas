@@ -32,8 +32,9 @@ const web = path.join(APP, "web");
 fs.rmSync(web, { recursive: true, force: true });
 fs.cpSync(path.join(ROOT, "dist"), web, { recursive: true });
 
-/* 2 — the studios, if they are built */
-const engines = path.join(APP, "engines");
+/* 2 — the studios, if they are built. They sit beside the editor so one path,
+      /engine/<id>/host.html, works in the browser and in the app alike. */
+const engines = path.join(web, "engine");
 fs.rmSync(engines, { recursive: true, force: true });
 let staged = [];
 for (const id of ["photo", "vector"]) {

@@ -328,6 +328,7 @@ const MODES: RenderMode[] = ["sketch", "normal", "precision"];
 /** Technical readout strip: what is selected, in board units. */
 export function StatusBar() {
   const doc = useStore((s) => s.doc);
+  const camera = useStore((s) => s.camera);
   const selection = useStore((s) => s.selection);
   const mode = useStore((s) => s.doc.settings.renderMode);
   const snapObjects = useStore((s) => s.doc.settings.snapToObjects);
@@ -340,8 +341,20 @@ export function StatusBar() {
   const box = boundsOfObjects(objects);
   const fmt = (v: number) => formatMeasure(v, doc.settings.unit, doc.settings.unitScale);
 
+  // The document readout a photo editor shows: size, zoom, colour mode — the same
+  // three facts the studios put in the same corner.
+  const page = doc.settings.page;
+  const zoom = Math.round(camera.zoom * 100);
+
   return (
     <div className="statusbar" data-ui>
+      <span className="doc-status" title="Document size, zoom and colour mode">
+        <b>{page ? `${Math.round(page.width)} × ${Math.round(page.height)} px` : "Infinite board"}</b>
+        <i>·</i>
+        <span>{zoom}%</span>
+        <i>·</i>
+        <span>RGB/8</span>
+      </span>
       <span className="status-cell">
         {doc.order.length} object{doc.order.length === 1 ? "" : "s"}
       </span>

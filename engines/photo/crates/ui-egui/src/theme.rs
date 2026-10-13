@@ -16,6 +16,10 @@
 //! - **Pro (Light Gray)** and **Pro (Light)**: Photoshop's third and fourth interface brightness
 //!   levels (#B8B8B8 and #F0F0F0 panels) with the Pro layout (#2661).
 //!
+//! - **CoolCanvas**: the colours of the CoolCanvas board itself — warm paper surfaces,
+//!   near-black ink, hairline rules and one signal colour. It is the default, so a studio
+//!   and the board look like one application.
+//!
 //! Widgets read [`Tokens::get`] instead of hard-coding colours, so every theme applies everywhere.
 
 use egui::{Color32, CornerRadius, FontData, FontDefinitions, FontFamily, FontId, Stroke, TextStyle, Visuals};
@@ -25,10 +29,12 @@ use std::sync::Arc;
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 pub enum ThemeKind {
+    /// CoolCanvas's own look: the board's paper, ink and signal colour (default).
+    #[default]
+    CoolCanvas,
     /// Photoshop-style Spectrum dark: flat charcoal panels, tab strips, blue accents (darkest brightness).
     Pro,
-    /// Photoshop's default (second) interface brightness: #535353 panels, #282828 canvas (default).
-    #[default]
+    /// Photoshop's default (second) interface brightness: #535353 panels, #282828 canvas.
     ProMedium,
     /// Photoshop's third interface brightness: #B8B8B8 panels (#2661).
     ProLightGray,
@@ -55,7 +61,8 @@ pub enum ThemeKind {
 }
 
 impl ThemeKind {
-    pub const ALL: [ThemeKind; 14] = [
+    pub const ALL: [ThemeKind; 15] = [
+        ThemeKind::CoolCanvas,
         ThemeKind::Pro,
         ThemeKind::ProMedium,
         ThemeKind::ProLightGray,
@@ -73,6 +80,7 @@ impl ThemeKind {
     ];
     pub fn label(self) -> &'static str {
         match self {
+            ThemeKind::CoolCanvas => "CoolCanvas",
             ThemeKind::Pro => "Pro (Dark)",
             ThemeKind::ProMedium => "Pro (Medium Gray)",
             ThemeKind::ProLightGray => "Pro (Light Gray)",
@@ -93,6 +101,7 @@ impl ThemeKind {
     /// `window.theme.<id>`.
     pub fn id(self) -> &'static str {
         match self {
+            ThemeKind::CoolCanvas => "coolCanvas",
             ThemeKind::Pro => "pro",
             ThemeKind::ProMedium => "proMedium",
             ThemeKind::ProLightGray => "proLightGray",
@@ -659,6 +668,48 @@ impl Tokens {
             },
             // Soft Light: pale violet-grey surfaces, softened dark-violet text (not black) and a
             // periwinkle accent, with the same generous radii as Soft Dark.
+            ThemeKind::CoolCanvas => Tokens {
+                kind,
+                // The board's own palette: --paper, --surface, --ink, --line, --signal.
+                chrome: Color32::from_rgb(0xff, 0xff, 0xff),
+                canvas: Color32::from_rgb(0xf1, 0xf0, 0xec),
+                canvas_dot: Color32::from_rgb(0xd5, 0xd2, 0xc9),
+                dock: Color32::from_rgb(0xf6, 0xf5, 0xf2),
+                card: Color32::from_rgb(0xff, 0xff, 0xff),
+                card_border: Color32::from_rgb(0xe6, 0xe4, 0xde),
+                field: Color32::from_rgb(0xff, 0xff, 0xff),
+                field_border: Color32::from_rgb(0xd5, 0xd2, 0xc9),
+                hover: Color32::from_rgb(0xf6, 0xf5, 0xf2),
+                pressed: Color32::from_rgb(0xef, 0xee, 0xe9),
+                text: Color32::from_rgb(0x1a, 0x1a, 0x18),
+                text_dim: Color32::from_rgb(0x55, 0x55, 0x4d),
+                text_faint: Color32::from_rgb(0x8a, 0x8a, 0x80),
+                icon: Color32::from_rgb(0x55, 0x55, 0x4d),
+                accent: Color32::from_rgb(31, 95, 208),
+                accent_soft: Color32::from_rgba_unmultiplied(31, 95, 208, 30),
+                accent_border: Color32::from_rgba_unmultiplied(31, 95, 208, 150),
+                accent_text: Color32::from_rgb(23, 74, 160),
+                separator: Color32::from_rgb(0xe6, 0xe4, 0xde),
+                shadow: Color32::from_black_alpha(26),
+                primary_bg: Color32::from_rgb(0x1a, 0x1a, 0x18),
+                primary_text: Color32::from_rgb(0xff, 0xff, 0xff),
+                danger: Color32::from_rgb(0xd4, 0x48, 0x3b),
+                warning: Color32::from_rgb(0xb4, 0x76, 0x2a),
+                // The board's own radii: --r-sm, --r-md, --r-lg.
+                radius_sm: 6.0,
+                radius: 10.0,
+                radius_lg: 14.0,
+                bevel: false,
+                pro: false,
+                round_chips: true,
+                tab_strip: Color32::TRANSPARENT,
+                row_selected: Color32::from_rgba_unmultiplied(31, 95, 208, 28),
+                histogram_bg: Color32::from_rgb(0x1a, 0x1a, 0x18),
+                histogram_level: 245,
+                caption_close: Color32::from_rgb(0xd4, 0x48, 0x3b),
+                caption_close_text: Color32::WHITE,
+                scrim: Color32::from_black_alpha(70),
+            },
             ThemeKind::SoftLight => Tokens {
                 kind,
                 chrome: Color32::from_rgb(232, 230, 236),

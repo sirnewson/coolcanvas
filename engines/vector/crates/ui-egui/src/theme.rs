@@ -1,4 +1,9 @@
-//! Design tokens (Illustrator's four UI brightness levels), fonts and egui style.
+//! Design tokens, fonts and egui style.
+//!
+//! **CoolCanvas** is the default: the colours of the CoolCanvas board itself — warm paper
+//! surfaces, near-black ink, hairline rules and the clay signal colour — so a studio and
+//! the board look like one application. The four Illustrator brightness levels remain for
+//! anyone who prefers them.
 
 use std::sync::Arc;
 
@@ -7,17 +12,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Brightness {
-    Dark,
+    /// CoolCanvas's own look: the board's paper, ink and signal colour (default).
     #[default]
+    CoolCanvas,
+    Dark,
     MediumDark,
     MediumLight,
     Light,
 }
 
 impl Brightness {
-    pub const ALL: [Brightness; 4] = [Brightness::Dark, Brightness::MediumDark, Brightness::MediumLight, Brightness::Light];
+    pub const ALL: [Brightness; 5] = [Brightness::CoolCanvas, Brightness::Dark, Brightness::MediumDark, Brightness::MediumLight, Brightness::Light];
     pub fn label(self) -> &'static str {
         match self {
+            Brightness::CoolCanvas => "CoolCanvas",
             Brightness::Dark => "Dark",
             Brightness::MediumDark => "Medium Dark",
             Brightness::MediumLight => "Medium Light",
@@ -26,6 +34,7 @@ impl Brightness {
     }
     pub fn id(self) -> &'static str {
         match self {
+            Brightness::CoolCanvas => "coolCanvas",
             Brightness::Dark => "dark",
             Brightness::MediumDark => "mediumDark",
             Brightness::MediumLight => "mediumLight",
@@ -193,6 +202,36 @@ impl Tokens {
                 button: hex(0xcacaca),
                 ..base
             },
+            // The CoolCanvas board's own palette: --paper, --surface, --ink, --line and the
+            // clay signal colour, with the board's 10px corners.
+            Brightness::CoolCanvas => Tokens {
+                dark: false,
+                app_bar: hex(0xffffff),
+                panel: hex(0xffffff),
+                panel_darker: hex(0xf6f5f2),
+                input: hex(0xffffff),
+                input_border: hex(0xd5d2c9),
+                border: hex(0xe6e4de),
+                divider: hex(0xe6e4de),
+                text: hex(0x1a1a18),
+                text_dim: hex(0x55554d),
+                text_disabled: hex(0x8a8a80),
+                icon: hex(0x55554d),
+                hover: hex(0xf1f0ec),
+                tool_active: hex(0xece9e2),
+                accent: hex(0xd1562f),
+                accent_strong: hex(0x9c3a1c),
+                row_selected: hex(0xf7e6df),
+                pasteboard: hex(0xf1f0ec),
+                ruler: hex(0xfaf9f6),
+                ruler_tick: hex(0x8a8a80),
+                button: hex(0xffffff),
+                button_border: hex(0xd5d2c9),
+                tab_strip: hex(0xf6f5f2),
+                text_strong: hex(0x1a1a18),
+                radius: 8,
+                ..base
+            },
             Brightness::Light => Tokens {
                 tab_strip: hex(0xdddddd),
                 text_strong: hex(0x000000),
@@ -222,7 +261,7 @@ impl Tokens {
     }
 
     pub fn get(ctx: &egui::Context) -> Tokens {
-        ctx.data(|d| d.get_temp::<Tokens>(egui::Id::NULL)).unwrap_or_else(|| Tokens::for_brightness(Brightness::MediumDark))
+        ctx.data(|d| d.get_temp::<Tokens>(egui::Id::NULL)).unwrap_or_else(|| Tokens::for_brightness(Brightness::CoolCanvas))
     }
     pub fn cr(&self) -> CornerRadius {
         CornerRadius::same(self.radius)

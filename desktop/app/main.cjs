@@ -129,15 +129,16 @@ const MIME = {
 
 function serve(request) {
   const url = new URL(request.url);
-  // coolcanvas://app/...  → the editor;  coolcanvas://engine/photo/... → a studio
+  // coolcanvas://app/... — the editor and, under /engine/<id>/, the studios.
   const root = url.hostname === "engine" ? ENGINE_DIR : WEB_DIR;
   const rel = decodeURIComponent(url.pathname).replace(/^\/+/, "") || "index.html";
   let file = path.join(root, rel);
   if (!file.startsWith(root)) return new Response("Forbidden", { status: 403 });
   if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+    // A missing studio must say so rather than quietly serving the editor.
+    if (rel.startsWith("engine/") || url.hostname === "engine") return new Response("Not found", { status: 404 });
     // The editor is a single page; unknown paths fall back to it.
-    if (url.hostname !== "engine") file = path.join(WEB_DIR, "index.html");
-    else return new Response("Not found", { status: 404 });
+    file = path.join(WEB_DIR, "index.html");
   }
   const headers = {
     "content-type": MIME[path.extname(file)] ?? "application/octet-stream",

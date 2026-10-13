@@ -7,7 +7,8 @@ import type { StudioId } from "./studios/studios";
 import { HintToast, PresentBar, StatusBar, Topbar, ZoomBar } from "./ui/Chrome";
 import { CommandMenu } from "./ui/CommandMenu";
 import { ContextToolbar } from "./ui/ContextToolbar";
-import { Dock, DockSheet } from "./ui/Dock";
+import { DockSheet } from "./ui/Dock";
+import { DockGroups } from "./ui/DockGroups";
 import { OptionsBar } from "./ui/OptionsBar";
 import { JobPill, SketchStarter } from "./ui/Studio";
 import { SiteBuilder } from "./builder/SiteBuilder";
@@ -360,7 +361,7 @@ export default function App() {
       <Canvas />
       {!presenting && !mobile && <Toolbar onInsertImage={insertImage} />}
       {!presenting && mobile && <MobileBar onInsertImage={insertImage} />}
-      {!presenting && layout === "desktop" && <Dock />}
+      {!presenting && layout === "desktop" && <DockGroups />}
       {!presenting && tablet && <DockSheet />}
       {!presenting && <ContextToolbar />}
       {!presenting && layout === "desktop" && <StatusBar />}

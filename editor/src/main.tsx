@@ -8,6 +8,7 @@ import "./styles.css";
 import "./studio.css";
 import "./builder/builder.css";
 import "./studios/studios.css";
+import "./studio-skin.css";
 
 if (import.meta.env.DEV) {
   // Handy for poking at board state from the console during development.
