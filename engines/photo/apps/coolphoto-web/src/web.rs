@@ -88,7 +88,9 @@ pub fn start() {
                         coolphoto_ui_egui::notices::post(&mut app, i18n::t("Some brush presets could not be loaded"), preset_warnings, true, None);
                     }
                     listen_pen(&pen_target, app.stylus.feed.clone());
-                    app.set_theme(&cc.egui_ctx, ThemeKind::Pro);
+                    // CoolCanvas's own look, so a studio matches the board it opened from.
+                    // A theme the person chooses is in their preferences and still wins.
+                    app.set_theme(&cc.egui_ctx, ThemeKind::CoolCanvas);
                     if let Some(rs) = cc.wgpu_render_state.clone()
                         && !force_cpu
                     {

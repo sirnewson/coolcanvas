@@ -119,7 +119,14 @@ async fn run(host: Host, canvas: web_sys::HtmlCanvasElement, moving: Option<Movi
                         app.status("The graphics were lost and have been restarted");
                         app
                     }
-                    None => CoolVectorApp::new(Session::new(), services),
+                    None => {
+                        let mut app = CoolVectorApp::new(Session::new(), services);
+                        // CoolCanvas's own look, so a studio matches the board it opened from.
+                        // A brightness the person picks afterwards is kept and still wins.
+                        app.ui.brightness = coolvector_ui_egui::theme::Brightness::CoolCanvas;
+                        coolvector_ui_egui::theme::apply(&cc.egui_ctx, app.ui.brightness);
+                        app
+                    }
                 };
                 Ok(Box::new(WebShell { app: Some(app), host, canvas: page, loss }))
             }),
