@@ -33,6 +33,25 @@ them is what their licences allow and what this repository does, in the open:
 
 This is the same arrangement CoolMotion has with EffectCraft.
 
+## One design language
+
+The three workspaces share a photo editor's grammar in the board's own light palette, so
+moving between them changes the document, not the furniture:
+
+- Each engine carries a **CoolCanvas** theme in its own Rust token system
+  (`crates/ui-egui/src/theme.rs`: `ThemeKind::CoolCanvas` for Photo,
+  `Brightness::CoolCanvas` for Vector), built from the board's CSS variables — `#faf9f6`
+  paper, `#1a1a18` ink, `#e6e4de` hairlines, the board's 6/10/14px radii. It is the default
+  in their preferences, so a fresh install matches the board without anyone choosing a theme.
+- Photo Studio takes the board's blue signal colour (`#1f5fd0`); Vector Studio takes clay
+  (`#d1562f`), which is what marks it as the distinct studio.
+- The canvas moved toward the studios in return: `editor/src/studio-skin.css` gives it
+  stacked collapsible panel groups with tab strips, compact rows, hairline rules, a docked
+  tool rail and a document readout (size, zoom, colour mode) in the same corner the studios
+  use. Panel groups are named as the studios name them — Color, Properties, Layers, Document.
+- Anyone who prefers the upstream looks still has them: every original theme remains in the
+  list, including Photoshop's four brightness levels and Illustrator's.
+
 ## How a studio runs
 
 Each engine builds two ways from the same source:

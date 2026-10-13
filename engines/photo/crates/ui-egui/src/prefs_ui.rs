@@ -91,6 +91,7 @@ fn selected_theme(interface: &prefs::Interface, system: Option<egui::Theme>) -> 
     };
     if light {
         match interface.light_theme {
+            LightTheme::CoolCanvas => ThemeKind::CoolCanvas,
             LightTheme::StudioLight => ThemeKind::StudioLight,
             LightTheme::ProLightGray => ThemeKind::ProLightGray,
             LightTheme::ProLight => ThemeKind::ProLight,

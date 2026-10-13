@@ -1,0 +1,37 @@
+{
+  "name": "CoolCanvas",
+  "path": "E:\\CODING\\CoolCanvas",
+  "stack": [
+    "Node.js",
+    "Vite"
+  ],
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5190",
+    "build": "tsc -b editor && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 5191",
+    "engines:native": "node scripts/build-engines.mjs",
+    "engines:web": "node scripts/build-engines.mjs --web",
+    "engines:check": "node scripts/build-engines.mjs --check",
+    "icons": "node scripts/make-icons.mjs",
+    "desktop": "node desktop/scripts/build.mjs && cd desktop && npx electron app",
+    "desktop:build": "node desktop/scripts/build.mjs",
+    "desktop:dir": "node desktop/scripts/build.mjs --dir",
+    "desktop:dist": "node desktop/scripts/build.mjs --dist"
+  },
+  "keyFiles": [
+    "README.md",
+    "package.json"
+  ],
+  "folders": [
+    "desktop/",
+    "dist/",
+    "docs/",
+    "editor/",
+    "engines/",
+    "integrations/",
+    "out/",
+    "scripts/",
+    "third-party/"
+  ],
+  "updated": "2026-10-13T10:22:44.911Z"
+}

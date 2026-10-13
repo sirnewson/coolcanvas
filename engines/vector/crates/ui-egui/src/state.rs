@@ -597,7 +597,8 @@ impl Default for UiState {
     fn default() -> Self {
         Self {
             legacy_language: None,
-            brightness: Brightness::MediumDark,
+            // CoolCanvas's own look, so a studio and the board match out of the box.
+            brightness: Brightness::CoolCanvas,
             dock_tab: DockTab::Properties,
             dock_collapsed: false,
             open_panel: None,
