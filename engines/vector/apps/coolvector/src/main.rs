@@ -587,7 +587,7 @@ fn custom_titlebar(saved: Option<&coolvector_ui_egui::UiState>) -> bool {
 fn native_options(custom_titlebar: bool) -> eframe::NativeOptions {
     eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
-            .with_title("CoolVector")
+            .with_title("CoolCanvas Vector Studio")
             .with_inner_size(window::DEFAULT_SIZE)
             .with_min_inner_size(window::MIN_SIZE)
             .with_drag_and_drop(true)
