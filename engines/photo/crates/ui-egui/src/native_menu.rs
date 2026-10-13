@@ -28,7 +28,7 @@ use crate::CoolPhotoApp;
 use crate::i18n::{Lang, tr, tr_id};
 use crate::menus::MenuItem;
 
-pub const APP_NAME: &str = "CoolPhoto";
+pub const APP_NAME: &str = "CoolCanvas Photo Studio";
 
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct MenuBar {

@@ -92,7 +92,7 @@ pub fn app_bar(app: &mut CoolVectorApp, ui: &mut Ui) {
                 crate::community::discord_button(app, ui, false);
             }
             if app.services.native_menu.is_some() {
-                let title = ui.painter().layout_no_wrap("CoolVector".into(), egui::FontId::proportional(13.5), t.text);
+                let title = ui.painter().layout_no_wrap("CoolCanvas Vector Studio".into(), egui::FontId::proportional(13.5), t.text);
                 let title_rect = egui::Rect::from_center_size(full.center(), title.size());
                 // Keep the title centered only while the interactive groups leave room for it.
                 if title_rect.left() >= menus_end + 8.0 && title_rect.right() <= ui.min_rect().left() - 8.0 {
@@ -121,8 +121,8 @@ pub fn system_title_bar(app: &CoolVectorApp) -> bool {
 pub fn window_title(app: &CoolVectorApp) -> String {
     app.session
         .active()
-        .map(|d| format!("{}{} \u{2014} CoolVector", if d.is_dirty() { "*" } else { "" }, d.title()))
-        .unwrap_or_else(|| "CoolVector".into())
+        .map(|d| format!("{}{} \{2014} CoolCanvas Vector Studio", if d.is_dirty() { "*" } else { "" }, d.title()))
+        .unwrap_or_else(|| "CoolCanvas Vector Studio".into())
 }
 
 /// Keep the OS window title (and the taskbar / Alt-Tab entry) on the active file. Sends
@@ -1035,17 +1035,17 @@ mod tests {
 
     #[test]
     fn window_title_with_no_document_is_the_app_name() {
-        assert_eq!(super::window_title(&title_test_app(true)), "CoolVector");
+        assert_eq!(super::window_title(&title_test_app(true)), "CoolCanvas Vector Studio");
     }
 
     #[test]
     fn window_title_follows_the_active_file() {
         let mut app = title_test_app(true);
         app.run("file.new", json!({"width": 100, "height": 100, "name": "foo.svg"})).unwrap();
-        assert_eq!(super::window_title(&app), "foo.svg \u{2014} CoolVector");
+        assert_eq!(super::window_title(&app), "foo.svg \{2014} CoolCanvas Vector Studio");
         // Unsaved changes gain a `*` prefix, like the `*` in the document tabs.
         app.run("shape.rectangle", json!({"x": 0, "y": 0, "width": 10, "height": 10})).unwrap();
-        assert_eq!(super::window_title(&app), "*foo.svg \u{2014} CoolVector");
+        assert_eq!(super::window_title(&app), "*foo.svg \{2014} CoolCanvas Vector Studio");
     }
 
     #[test]
@@ -1079,11 +1079,11 @@ mod tests {
         let ctx = egui::Context::default();
         crate::theme::install_fonts(&ctx);
         super::sync_window_title(&mut app, &ctx);
-        assert_eq!(app.last_window_title, "CoolVector");
+        assert_eq!(app.last_window_title, "CoolCanvas Vector Studio");
         let mut out = ctx.run_ui(egui::RawInput::default(), |_| {});
         out.textures_delta.clear();
         let cmds = out.viewport_output.remove(&egui::ViewportId::ROOT).map(|v| v.commands).unwrap_or_default();
-        assert!(cmds.iter().any(|c| matches!(c, egui::ViewportCommand::Title(t) if t == "CoolVector")), "{cmds:?}");
+        assert!(cmds.iter().any(|c| matches!(c, egui::ViewportCommand::Title(t) if t == "CoolCanvas Vector Studio")), "{cmds:?}");
         // Same document state again: the cached title stops a repeat command.
         super::sync_window_title(&mut app, &ctx);
         let mut out = ctx.run_ui(egui::RawInput::default(), |_| {});
@@ -1092,7 +1092,7 @@ mod tests {
         assert!(!cmds.iter().any(|c| matches!(c, egui::ViewportCommand::Title(_))), "repeat Title: {cmds:?}");
         app.run("file.new", json!({"width": 100, "height": 100, "name": "foo.svg"})).unwrap();
         super::sync_window_title(&mut app, &ctx);
-        assert_eq!(app.last_window_title, "foo.svg \u{2014} CoolVector");
+        assert_eq!(app.last_window_title, "foo.svg \{2014} CoolCanvas Vector Studio");
     }
 }
 
@@ -1199,12 +1199,12 @@ mod visual_regressions {
                             _ => None,
                         })
                         .collect();
-                    let title = texts.iter().find(|text| text.galley.job.text == "CoolVector");
+                    let title = texts.iter().find(|text| text.galley.job.text == "CoolCanvas Vector Studio");
                     if width >= 1280.0 {
                         assert!(title.is_some(), "the title remains visible when the header has room");
                     }
                     if let Some(title) = title {
-                        for text in texts.iter().filter(|text| text.galley.job.text != "CoolVector") {
+                        for text in texts.iter().filter(|text| text.galley.job.text != "CoolCanvas Vector Studio") {
                             assert!(
                                 !title.visual_bounding_rect().intersects(text.visual_bounding_rect()),
                                 "{width}: title overlaps {:?}",
