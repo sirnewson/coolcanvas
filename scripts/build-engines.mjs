@@ -40,6 +40,9 @@ if (env.NO_COLOR !== undefined && env.NO_COLOR !== "true" && env.NO_COLOR !== "f
 const tmp = path.join(ROOT, "out", "tmp");
 fs.mkdirSync(tmp, { recursive: true });
 env.TMP = env.TEMP = tmp;
+const appCache = path.join(ROOT, "out", "cache");
+fs.mkdirSync(appCache, { recursive: true });
+env.LOCALAPPDATA = env.APPDATA = env.XDG_CACHE_HOME = appCache;
 
 // Git for Windows puts a coreutils `link` on PATH that shadows the MSVC linker.
 if (process.platform === "win32") {
@@ -51,6 +54,11 @@ if (process.platform === "win32") {
 }
 
 const LOCAL_TRUNK = path.join(ROOT, "out", "tools", process.platform === "win32" ? "trunk.exe" : "trunk");
+const LOCAL_RUST_BIN = path.join(ROOT, "out", "tools", "rust-bin", "bin");
+{
+  const key = Object.keys(env).find((k) => k.toLowerCase() === "path") ?? "PATH";
+  env[key] = `${LOCAL_RUST_BIN}${path.delimiter}${env[key] ?? ""}`;
+}
 const trunkBin = () => (fs.existsSync(LOCAL_TRUNK) ? LOCAL_TRUNK : "trunk");
 
 function has(command) {
@@ -65,6 +73,18 @@ function has(command) {
 if (!has("cargo")) {
   console.error("Rust is not installed. Get it free from https://rustup.rs, then run this again.");
   process.exit(1);
+}
+if (web && !has("wasm-bindgen")) {
+  console.log("Installing wasm-bindgen-cli 0.2.129 from the local Cargo cache.");
+  const installed = spawnSync(
+    "cargo",
+    ["install", "wasm-bindgen-cli", "--version", "0.2.129", "--locked", "--offline", "--root", path.join(ROOT, "out", "tools", "rust-bin")],
+    { cwd: ROOT, stdio: "inherit", env, shell: process.platform === "win32" },
+  );
+  if (installed.status !== 0) {
+    console.error("wasm-bindgen-cli is required for web engine builds. Install it with: cargo install wasm-bindgen-cli --version 0.2.129 --locked");
+    process.exit(1);
+  }
 }
 
 let failed = 0;
