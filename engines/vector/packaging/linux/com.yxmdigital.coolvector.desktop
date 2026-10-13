@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=CoolVector
+GenericName=Vector Graphics Editor
+Comment=Draw and edit vector illustrations, SVG and PDF
+Exec=coolvector %F
+TryExec=coolvector
+Icon=com.yxmdigital.coolvector
+Terminal=false
+StartupNotify=true
+StartupWMClass=com.yxmdigital.coolvector
+Categories=Graphics;2DGraphics;VectorGraphics;
+Keywords=vector;illustration;svg;pdf;drawing;bezier;
+MimeType=image/svg+xml;application/pdf;

@@ -1,0 +1,23 @@
+[package]
+name = "coolvector-tools"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "CoolVector tool state machines: pointer events in, commands and overlays out"
+
+[lints]
+workspace = true
+
+[dependencies]
+coolvector-geom = { workspace = true }
+coolvector-color = { workspace = true }
+coolvector-doc = { workspace = true }
+coolvector-pathops = { workspace = true }
+coolvector-text = { workspace = true }
+kurbo = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+image = { workspace = true }
+coolvector-text = { workspace = true, features = ["test-fonts"] }

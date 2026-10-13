@@ -1,0 +1,16 @@
+[package]
+name = "coolphoto-raster"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+coolphoto-geom = { workspace = true }
+coolphoto-color = { workspace = true }
+serde = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

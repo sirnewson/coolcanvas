@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>CoolCanvas Studio</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #262626; }
+    #coolphoto_canvas, #coolvector_canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; outline: none; }
+    #boot { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center;
+      color: #b8b8b8; font: 14px system-ui, sans-serif; pointer-events: none; }
+    #boot p { margin: 0 0 8px; max-width: 46ch; line-height: 1.55; }
+    #boot a, #boot button { pointer-events: auto; color: #e6e6e6; }
+    #slow { color: #8c8c8c; visibility: hidden; animation: appear 0s 20s forwards; }
+    @keyframes appear { to { visibility: visible; } }
+  </style>
+</head>
+<body>
+  <!-- The engine attaches to whichever canvas its build looks for. -->
+  <canvas id="coolphoto_canvas"></canvas>
+  <canvas id="coolvector_canvas" hidden></canvas>
+  <div id="boot">
+    <div>
+      <p id="msg">Starting the studio…</p>
+      <p id="slow">This is taking longer than usual. If it does not start, its files may have failed to
+        load or may come from a different build. <a href="">Reload</a> to try again; the console lists what failed.</p>
+    </div>
+  </div>
+
+  <script type="module">
+    /*
+     * CoolCanvas's own host page around our engine build (engines/, MIT OR Apache-2.0 upstream).
+     *
+     * It does three things the engine does not: picks the GPU backend, carries files in from
+     * the canvas without a file dialog, and reports what comes back out. Everything else is
+     * the engine's own UI.
+     */
+    const params = new URLSearchParams(location.search);
+    const studio = params.get("studio") === "vector" ? "vector" : "photo";
+    const msg = document.getElementById("msg");
+
+    /**
+     * The build hashes the bundle's file name, so find it the way the engine's own page
+     * does: read that page and take the module it imports. One fetch, no build-time
+     * substitution to keep in step.
+     */
+    async function findBundle() {
+      const named = params.get("bundle");
+      if (named) return [named, null];
+      const page = await (await fetch("./index.html")).text();
+      const js = /import\s+init[^'"]*['"]\.\/([^'"]+\.js)['"]/.exec(page);
+      const wasm = /module_or_path:\s*['"]\.\/([^'"]+\.wasm)['"]/.exec(page);
+      if (!js) throw new Error("the studio build is incomplete");
+      return [`./${js[1]}`, wasm ? `./${wasm[1]}` : null];
+    }
+
+    // Opt-in CPU/WebGL path for devices where WebGPU fails. It affects this page only;
+    // no browser or Windows setting is touched.
+    if (params.get("backend") === "webgl") {
+      Object.defineProperty(navigator, "gpu", { value: undefined, configurable: true });
+      const getContext = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function (kind, options) {
+        return kind === "webgpu" ? null : getContext.call(this, kind, options);
+      };
+    }
+
+    const canvas = document.getElementById(`${studio === "vector" ? "coolvector" : "coolphoto"}_canvas`);
+    const other = document.getElementById(`${studio === "vector" ? "coolphoto" : "coolvector"}_canvas`);
+    if (other) other.remove();
+    canvas.hidden = false;
+
+    /**
+     * Hands a file to the engine the way a person would: a real drop on its canvas.
+     * The engine's own open path then runs, so every format it supports arrives intact.
+     */
+    function deliver(name, bytes, type) {
+      const file = new File([bytes], name, { type: type || "application/octet-stream" });
+      const data = new DataTransfer();
+      data.items.add(file);
+      const at = { clientX: canvas.clientWidth / 2, clientY: canvas.clientHeight / 2, bubbles: true, cancelable: true, dataTransfer: data };
+      canvas.dispatchEvent(new DragEvent("dragenter", at));
+      canvas.dispatchEvent(new DragEvent("dragover", at));
+      canvas.dispatchEvent(new DragEvent("drop", at));
+      return true;
+    }
+
+    /** Tell the shell what the studio produced, so it can land on the canvas. */
+    function announce(detail) {
+      parent?.postMessage({ source: "coolcanvas-studio", studio, ...detail }, "*");
+    }
+
+    // Anything the engine saves goes through a download; intercept it rather than
+    // dropping it in the Downloads folder, and offer it back to the canvas.
+    const click = HTMLAnchorElement.prototype.click;
+    HTMLAnchorElement.prototype.click = function () {
+      if (this.download && this.href?.startsWith("blob:")) {
+        fetch(this.href)
+          .then((r) => r.blob())
+          .then(async (blob) => announce({ kind: "saved", name: this.download, type: blob.type, bytes: await blob.arrayBuffer() }))
+          .catch(() => {});
+      }
+      return click.call(this);
+    };
+
+    window.addEventListener("message", (e) => {
+      const d = e.data;
+      if (!d || d.target !== "coolcanvas-studio") return;
+      if (d.kind === "open") {
+        try {
+          deliver(d.name ?? "canvas.png", d.bytes, d.type);
+          announce({ kind: "opened", name: d.name });
+        } catch (err) {
+          announce({ kind: "error", message: String(err) });
+        }
+      }
+    });
+
+    try {
+      const [bundle, wasm] = await findBundle();
+      const engine = await import(bundle);
+      await engine.default(wasm ? { module_or_path: wasm } : undefined);
+      // The eframe bundle starts itself; the loader element is removed by the app.
+      announce({ kind: "ready" });
+      setTimeout(() => document.getElementById("boot")?.remove(), 1200);
+    } catch (e) {
+      msg.textContent = "The studio could not start: " + (e?.message ?? e);
+      announce({ kind: "error", message: String(e?.message ?? e) });
+    }
+  </script>
+</body>
+</html>

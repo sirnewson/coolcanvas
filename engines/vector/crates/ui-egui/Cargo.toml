@@ -1,0 +1,43 @@
+[package]
+name = "coolvector-ui-egui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "CoolVector egui frontend (menus, panels, tools and canvas); swappable — nothing below depends on it"
+
+[lints]
+workspace = true
+
+[dependencies]
+craft-ui = { workspace = true }
+coolvector-geom = { workspace = true }
+coolvector-color = { workspace = true }
+coolvector-doc = { workspace = true }
+coolvector-brush = { workspace = true }
+coolvector-render = { workspace = true }
+coolvector-text = { workspace = true }
+coolvector-tools = { workspace = true }
+coolvector-engine = { workspace = true }
+coolvector-svg = { workspace = true }
+coolvector-effects = { workspace = true }
+coolvector-three-d = { workspace = true }
+coolvector-plugins = { workspace = true }
+coolvector-pdf = { workspace = true }
+coolvector-cad = { workspace = true }
+coolvector-eps = { workspace = true }
+coolvector-format = { workspace = true }
+egui = { workspace = true }
+egui_extras = { workspace = true }
+image = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+
+[dev-dependencies]
+egui_kittest = { workspace = true, features = ["wgpu", "snapshot"] }
+coolvector-testkit = { workspace = true }
+wat = { workspace = true }
+
+[build-dependencies]
+serde_json = { workspace = true }
+toml = "1"

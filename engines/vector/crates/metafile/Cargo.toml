@@ -1,0 +1,19 @@
+[package]
+name = "coolvector-metafile"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "CoolVector Windows metafiles: hand-written EMF and WMF writers and readers"
+
+[lints]
+workspace = true
+
+[dependencies]
+coolvector-geom = { workspace = true }
+coolvector-color = { workspace = true }
+coolvector-doc = { workspace = true }
+coolvector-effects = { workspace = true }
+coolvector-brush = { workspace = true }
+coolvector-text = { workspace = true }
+kurbo = { workspace = true }
+image = { workspace = true }

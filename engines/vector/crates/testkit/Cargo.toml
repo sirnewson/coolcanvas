@@ -1,0 +1,23 @@
+[package]
+name = "coolvector-testkit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "CoolVector test helpers: fixtures, generators, render comparison, geometry assertions"
+publish = false
+
+[lints]
+workspace = true
+
+[dependencies]
+coolvector-geom = { workspace = true }
+coolvector-color = { workspace = true }
+coolvector-doc = { workspace = true }
+coolvector-engine = { workspace = true }
+coolvector-render = { workspace = true }
+coolvector-format = { workspace = true }
+coolvector-svg = { workspace = true }
+kurbo = { workspace = true }
+serde_json = { workspace = true }
+proptest = { workspace = true }
+image = { workspace = true }

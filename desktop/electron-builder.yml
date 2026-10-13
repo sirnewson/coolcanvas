@@ -1,0 +1,72 @@
+# CoolCanvas — Windows packaging (electron-builder)
+appId: com.yxmdigital.coolcanvas
+productName: CoolCanvas
+copyright: Copyright © 2026 YXM Digital — Created by Sir Newson
+executableName: CoolCanvas
+
+directories:
+  app: app
+  buildResources: build
+  output: release
+
+# Unpacked on purpose: the window serves the studio engines (WebAssembly) from disk,
+# and launches the native studios as separate processes.
+asar: false
+
+files:
+  - "**/*"
+  - "!**/*.map"
+
+extraResources:
+  # The native studios, when they have been built (npm run engines:native).
+  - from: "../out/studios"
+    to: "studios"
+    filter:
+      - "**/*"
+  # Licences that must travel with the engines.
+  - from: "../engines/photo/NOTICE"
+    to: "licenses/photo/NOTICE"
+  - from: "../engines/photo/LICENSE-MIT"
+    to: "licenses/photo/LICENSE-MIT"
+  - from: "../engines/photo/LICENSE-APACHE"
+    to: "licenses/photo/LICENSE-APACHE"
+  - from: "../engines/photo/ATTRIBUTION.md"
+    to: "licenses/photo/ATTRIBUTION.md"
+  - from: "../engines/vector/NOTICE"
+    to: "licenses/vector/NOTICE"
+  - from: "../engines/vector/LICENSE-MIT"
+    to: "licenses/vector/LICENSE-MIT"
+  - from: "../engines/vector/LICENSE-APACHE"
+    to: "licenses/vector/LICENSE-APACHE"
+  - from: "../engines/vector/ATTRIBUTION.md"
+    to: "licenses/vector/ATTRIBUTION.md"
+
+fileAssociations:
+  - ext: yxm
+    name: CoolCanvas Board
+    description: CoolCanvas Board
+    icon: build/icon.ico
+    role: Editor
+
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch: [x64]
+  artifactName: "CoolCanvas-Setup-${version}.${ext}"
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: CoolCanvas
+  menuCategory: YXM Digital
+  runAfterFinish: true
+  uninstallDisplayName: CoolCanvas
+  deleteAppDataOnUninstall: false

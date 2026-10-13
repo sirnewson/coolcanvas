@@ -1,0 +1,9 @@
+{
+  "name": "coolcanvas-app",
+  "productName": "CoolCanvas",
+  "version": "1.0.0",
+  "description": "CoolCanvas — visual thinking and image studio",
+  "author": "YXM Digital",
+  "main": "main.cjs",
+  "private": true
+}

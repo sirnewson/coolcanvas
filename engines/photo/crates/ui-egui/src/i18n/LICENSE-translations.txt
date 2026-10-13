@@ -1,0 +1,33 @@
+CoolPhoto's Korean, German, Brazilian Portuguese, Italian, Ukrainian, Dutch, Czech, Turkish,
+Hungarian and Serbian UI translation catalogs are licensed under MIT OR Apache-2.0, at your option.
+The full license texts are in ../../../../LICENSE-MIT and ../../../../LICENSE-APACHE.
+
+Korean translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.
+
+German translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.
+
+Brazilian Portuguese translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.
+
+Italian translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.
+
+Ukrainian translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.
+
+Dutch translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.
+
+Czech translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.
+
+Turkish translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.
+
+Hungarian translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.
+
+Serbian translations: CoolPhoto contributors, original translations of
+CoolPhoto's English labels; no proprietary translation resources were used.

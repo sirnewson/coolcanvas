@@ -1,0 +1,210 @@
+/*
+ * The studio workspace: our strip, the engine's window.
+ * The bar belongs to CoolCanvas and stays in the app's language; everything below
+ * it is the engine's own interface and is left alone.
+ */
+
+.studio {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  z-index: 95;
+}
+
+.studio-bar {
+  flex: none;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.studio-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 6px 13px 6px 9px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+}
+.studio-back:hover {
+  background: var(--surface);
+  border-color: var(--line-strong);
+  transform: translateX(-1px);
+}
+.studio-back svg {
+  width: 15px;
+  height: 15px;
+}
+
+.studio-name {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.studio-name em {
+  font-style: italic;
+  color: var(--studio-accent, var(--signal));
+}
+.studio-blurb {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.studio-spacer {
+  flex: 1;
+}
+
+.studio-btn {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: background 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+}
+.studio-btn:hover:not(:disabled) {
+  background: var(--surface);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-1);
+}
+.studio-btn:disabled {
+  opacity: 0.45;
+}
+.studio-btn.is-accent {
+  background: var(--studio-accent, var(--signal));
+  border-color: transparent;
+  color: #fff;
+}
+.studio-close {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  border-radius: var(--r-sm);
+  color: var(--ink-3);
+}
+.studio-close:hover {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.studio-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #262626;
+}
+.studio-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.studio-veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  background: #1f1f1fe8;
+  color: #e4e2dc;
+}
+.studio-veil h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+}
+.studio-veil p {
+  margin: 0;
+  max-width: 52ch;
+  line-height: 1.6;
+  font-size: 13px;
+}
+.studio-note {
+  color: #a3a099;
+  font-size: 12px !important;
+}
+.studio-note code {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.studio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 6px;
+}
+.studio-veil .studio-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #f0eee8;
+}
+.studio-veil .studio-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+.studio-spin {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--studio-accent, #7ba4f2);
+  animation: studio-spin 800ms linear infinite;
+}
+@keyframes studio-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* The switcher in the top bar. */
+.studio-switch button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+.studio-switch button:first-child:hover {
+  color: #1f5fd0;
+}
+.studio-switch button:last-child:hover {
+  color: #d1562f;
+}
+.studio-switch svg {
+  width: 16px;
+  height: 16px;
+}

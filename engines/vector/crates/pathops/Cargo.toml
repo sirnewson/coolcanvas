@@ -1,0 +1,19 @@
+[package]
+name = "coolvector-pathops"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "CoolVector path operations: booleans (Pathfinder), shape builder regions, offset, outline stroke, simplify"
+
+[lints]
+workspace = true
+
+[dependencies]
+coolvector-geom = { workspace = true }
+kurbo = { workspace = true }
+thiserror = { workspace = true }
+linesweeper = { workspace = true }
+
+[dev-dependencies]
+coolvector-testkit = { workspace = true }
+proptest = { workspace = true }

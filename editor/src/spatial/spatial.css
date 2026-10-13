@@ -1,0 +1,1074 @@
+/*
+ * Spatial canvas.
+ * Everything here builds on the tokens the flat canvas already defines, so the
+ * two modes are one product: same paper ground, same white surfaces, same
+ * single signal colour. Only the viewport itself is new.
+ */
+
+.spatial {
+  /* The flat canvas has a taller header than this one, so the spatial shell
+     keeps its own metrics rather than inheriting numbers meant for a board. */
+  --sp-topbar-h: 48px;
+  --sp-status-h: 34px;
+  --dock-w: 330px;
+
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+/* ------------------------------------------------------------- viewport */
+
+.sp-viewport {
+  position: absolute;
+  top: var(--sp-topbar-h);
+  left: 0;
+  right: var(--dock-w);
+  bottom: var(--sp-status-h);
+  touch-action: none;
+  transition: right 160ms ease;
+}
+.dock-closed .sp-viewport {
+  right: 0;
+}
+.sp-viewport canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sp-tool-draw,
+.sp-tool-erase {
+  cursor: crosshair;
+}
+.sp-tool-pull,
+.sp-tool-plane {
+  cursor: ns-resize;
+}
+
+.sp-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1.5px solid rgba(26, 26, 24, 0.55);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.sp-marquee {
+  position: absolute;
+  border: 1px dashed var(--signal);
+  background: rgba(31, 95, 208, 0.08);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------- chrome */
+
+.spatial .topbar {
+  height: var(--sp-topbar-h);
+}
+.spatial .dock {
+  top: var(--sp-topbar-h);
+}
+.spatial .dock-reopen {
+  top: calc(var(--sp-topbar-h) + 12px);
+}
+.spatial .toolbar {
+  top: calc(var(--sp-topbar-h) + 14px);
+  max-height: calc(100% - var(--sp-topbar-h) - var(--sp-status-h) - 28px);
+}
+.spatial .statusbar {
+  height: var(--sp-status-h);
+}
+
+.spatial .board-name {
+  width: 200px;
+}
+
+.spatial .statusbar {
+  right: var(--dock-w);
+  transition: right 160ms ease;
+}
+.spatial.dock-closed .statusbar {
+  right: 0;
+}
+
+.sp-units {
+  height: 20px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: var(--r-sm);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-2);
+  padding: 0 2px;
+  margin-left: 8px;
+}
+
+/* ------------------------------------------------------------ depth hud */
+
+.sp-hud {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--sp-status-h) + 16px);
+  transform: translateX(-50%);
+  z-index: 26;
+  pointer-events: none;
+}
+.dock-closed .sp-hud {
+  left: 50%;
+}
+
+.sp-hud-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+  pointer-events: auto;
+}
+.sp-hud-group button {
+  height: 26px;
+  padding: 0 11px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.sp-hud-group button:hover {
+  background: var(--surface);
+  color: var(--ink);
+}
+.sp-hud-group button.is-active {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.sp-hud-label {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  padding-left: 8px;
+}
+.sp-hud-group input[type="range"] {
+  width: 130px;
+  accent-color: var(--ink);
+}
+.sp-hud-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--line);
+  margin: 0 3px;
+}
+.sp-hud-read {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-2);
+  padding-right: 8px;
+  min-width: 56px;
+  text-align: right;
+}
+
+/* --------------------------------------------------------- control wheels */
+
+.sp-controls {
+  position: absolute;
+  right: calc(var(--dock-w) + 18px);
+  top: calc(var(--sp-topbar-h) + 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 26;
+  transition: right 160ms ease;
+}
+.dock-closed .sp-controls {
+  right: 66px;
+}
+
+.sp-control-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sp-wheel svg {
+  display: block;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 6px 18px rgba(19, 26, 45, 0.1));
+}
+.sp-wheel:active svg {
+  cursor: grabbing;
+}
+.sp-wheel.is-idle {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.sp-wheel-face {
+  fill: rgba(255, 255, 255, 0.9);
+  stroke: var(--line);
+}
+.sp-wheel-hub {
+  fill: var(--ink-3);
+}
+
+/* ---- view ball ---- */
+
+.sp-node line {
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+.sp-node circle {
+  stroke-width: 1.4;
+  cursor: pointer;
+}
+.sp-node text {
+  font-family: var(--sans);
+  font-size: 8px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+  fill: #fff;
+  pointer-events: none;
+}
+.sp-node.x line, .sp-node.x circle { stroke: #d4483b; }
+.sp-node.y line, .sp-node.y circle { stroke: #2f8f5b; }
+.sp-node.z line, .sp-node.z circle { stroke: #2f6bf0; }
+.sp-node.x circle { fill: #d4483b; }
+.sp-node.y circle { fill: #2f8f5b; }
+.sp-node.z circle { fill: #2f6bf0; }
+/* the three facing away read as ghosts, so the near ones stay legible */
+.sp-node.is-back circle { fill: #fff; }
+.sp-node.is-back line { opacity: 0.2; }
+.sp-node:hover circle { stroke-width: 3; }
+
+/* ---- transform wheel ---- */
+
+.sp-arc {
+  fill: none;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  opacity: 0.4;
+  cursor: grab;
+}
+.sp-arc:hover {
+  opacity: 1;
+  stroke-width: 4;
+}
+
+.sp-arrow line {
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+.sp-arrow .sp-arrow-hit {
+  stroke: transparent;
+  stroke-width: 14;
+  cursor: grab;
+}
+.sp-arrow:hover line {
+  stroke-width: 3;
+}
+
+/* ---- icon rails ---- */
+
+.sp-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-1);
+  backdrop-filter: blur(10px);
+}
+.sp-rail button {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  color: var(--ink-3);
+}
+.sp-rail button:hover {
+  background: var(--surface);
+  color: var(--ink);
+}
+.sp-rail button.is-active {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+/* --------------------------------------------------------------- panels */
+
+.spatial .ins-note {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+.ins-more {
+  border: 0;
+  background: transparent;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--signal);
+  padding: 2px 4px;
+  border-radius: var(--r-sm);
+}
+.ins-more:hover {
+  background: var(--signal-soft);
+}
+
+.sp-range {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 1;
+  min-width: 0;
+}
+.sp-range input[type="range"] {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--ink);
+  height: 18px;
+}
+.sp-range-value {
+  flex: 0 0 auto;
+  min-width: 52px;
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-2);
+}
+
+.sp-hex {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--paper);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink);
+}
+.sp-hex:focus {
+  outline: none;
+  border-color: var(--signal);
+}
+
+.sp-chip {
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 99px;
+  font-size: 11.5px;
+  color: var(--ink-2);
+  text-transform: capitalize;
+}
+.sp-chip:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+.sp-chip.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--on-ink);
+}
+
+.sp-check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 30px;
+  border: 0;
+  background: transparent;
+  font-size: 12.5px;
+  color: var(--ink);
+  text-align: left;
+  padding: 0;
+}
+.sp-box {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--paper);
+  font-size: 11px;
+  color: transparent;
+}
+.sp-box.is-on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--on-ink);
+}
+
+.sp-mini {
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: var(--r-sm);
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+.sp-mini:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.sp-text {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--paper);
+  padding: 8px 10px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--ink);
+  resize: vertical;
+}
+.sp-text:focus {
+  outline: none;
+  border-color: var(--signal);
+}
+
+/* --------------------------------------------------------------- brushes */
+
+.sp-brushes {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  max-height: 268px;
+  overflow-y: auto;
+  margin: 0 -4px;
+}
+.sp-brush {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: transparent;
+  text-align: left;
+}
+.sp-brush:hover {
+  background: var(--surface);
+}
+.sp-brush.is-active {
+  background: var(--surface);
+  border-color: var(--line-strong);
+}
+.sp-brush img {
+  display: block;
+  width: 100%;
+  height: 26px;
+  object-fit: contain;
+  object-position: left center;
+  pointer-events: none;
+}
+.sp-brush span {
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+.sp-brush.is-active span {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---------------------------------------------------------- create tiles */
+
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.sp-grid.is-wide {
+  grid-template-columns: repeat(2, 1fr);
+}
+.sp-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--paper);
+  font-size: 11px;
+  color: var(--ink-2);
+  text-align: center;
+  line-height: 1.25;
+}
+.sp-tile:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* Each tile draws its own shape, so no icon files are needed. */
+.sp-tile-art {
+  width: 30px;
+  height: 30px;
+  display: block;
+  border: 1.4px solid currentColor;
+  opacity: 0.8;
+}
+.art-cube { border-radius: 3px; transform: perspective(60px) rotateX(-14deg) rotateY(18deg); }
+.art-sphere { border-radius: 50%; }
+.art-icosphere { border-radius: 50%; clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%); border-radius: 0; }
+.art-cylinder { border-radius: 40% / 16%; }
+.art-cone { border: 0; width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-bottom: 26px solid currentColor; opacity: 0.75; }
+.art-torus { border-radius: 50%; border-width: 6px; }
+.art-plane { height: 18px; border-radius: 2px; transform: perspective(50px) rotateX(46deg); }
+.art-capsule { border-radius: 15px; width: 18px; }
+.art-torusknot { border-radius: 50% 12% 50% 12%; border-width: 4px; }
+.art-tube { border-radius: 40% / 16%; border-top-width: 5px; border-bottom-width: 5px; }
+.art-flat-rect { height: 22px; border-radius: 3px; }
+.art-flat-ellipse { border-radius: 50%; height: 22px; }
+.art-flat-text { border: 0; border-bottom: 2px solid currentColor; height: 16px; width: 26px; }
+.art-flat-note { border-radius: 2px; background: rgba(228, 214, 154, 0.5); border-color: #c9b878; }
+.art-flat-image { border-radius: 3px; background: linear-gradient(135deg, transparent 45%, currentColor 45%, currentColor 55%, transparent 55%); }
+
+.sp-models {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sp-model {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--paper);
+  text-align: left;
+}
+.sp-model:hover {
+  border-color: var(--ink);
+}
+.sp-model-art {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 34px;
+  border-radius: 3px;
+  background:
+    radial-gradient(circle at 50% 14%, var(--ink-2) 0 5px, transparent 5px),
+    linear-gradient(var(--ink-3), var(--ink-3)) 50% 42% / 3px 15px no-repeat,
+    linear-gradient(var(--ink-3), var(--ink-3)) 50% 34% / 20px 3px no-repeat;
+  opacity: 0.75;
+}
+.sp-model strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.sp-model em {
+  display: block;
+  font-style: normal;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+/* ---------------------------------------------------------------- layers */
+
+.sp-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.sp-layer {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 2px;
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--paper);
+}
+.sp-layer.is-active {
+  border-color: var(--ink);
+}
+.sp-layer-main {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 0;
+}
+.sp-layer-main input {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 0;
+}
+.sp-layer-main input:focus {
+  outline: none;
+}
+.sp-layer-main em {
+  font-style: normal;
+  font-size: 10.5px;
+  color: var(--ink-3);
+}
+.sp-layer-btn {
+  width: 26px;
+  height: 26px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.sp-layer-btn:hover {
+  background: var(--surface);
+  color: var(--ink);
+}
+.sp-layer-more {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+  padding-top: 7px;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ----------------------------------------------------------------- misc */
+
+.sp-busy {
+  margin: 12px 18px 0;
+  padding: 8px 11px;
+  border-radius: var(--r-sm);
+  background: var(--signal-soft);
+  font-size: 11.5px;
+  color: var(--signal);
+}
+
+.sp-keys {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 10px;
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+.sp-keys kbd {
+  display: inline-block;
+  min-width: 18px;
+  padding: 1px 4px;
+  margin-right: 5px;
+  border: 1px solid var(--line-strong);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--paper);
+  font-family: var(--mono);
+  font-size: 10px;
+  text-align: center;
+  color: var(--ink);
+}
+
+.sp-toast {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--sp-topbar-h) + 18px);
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: var(--r-md);
+  background: var(--ink);
+  color: var(--on-ink);
+  font-size: 12.5px;
+  font-weight: 500;
+  box-shadow: var(--shadow-2);
+  z-index: 60;
+  pointer-events: none;
+  animation: sp-rise 160ms ease;
+}
+@keyframes sp-rise {
+  from { opacity: 0; transform: translate(-50%, -5px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Tab, or a four-finger tap, clears everything but the work. */
+.spatial-focus .spatial .topbar,
+.spatial-focus .spatial .toolbar,
+.spatial-focus .spatial .dock,
+.spatial-focus .spatial .dock-reopen,
+.spatial-focus .spatial .statusbar,
+.spatial-focus .spatial .sp-hud,
+.spatial-focus .spatial .sp-controls {
+  opacity: 0;
+  pointer-events: none;
+}
+.spatial-focus .sp-viewport {
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@media (max-width: 1100px) {
+  .sp-viewport,
+  .spatial .statusbar {
+    right: 0;
+  }
+  .dock {
+    box-shadow: var(--shadow-2);
+  }
+  .sp-controls {
+    right: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spatial *,
+  .spatial *::before,
+  .spatial *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------- dock tabs */
+
+/* Seven labels in a 312px dock: tighter than the flat canvas needs, and
+   scrollable rather than truncated if the dock is ever narrowed. */
+.spatial .dock-tabs {
+  padding: 0 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.spatial .dock-tabs::-webkit-scrollbar {
+  display: none;
+}
+.spatial .dock-tabs button {
+  flex: 1 0 auto;
+  padding: 12px 7px 10px;
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+.spatial .dock-collapse {
+  flex: 0 0 24px;
+  font-size: 15px;
+}
+
+/* ==========================================================================
+   Dock, in the panel language of the reference: a soft blue ground, white
+   cards floating on it, blue accents, and controls with real hit areas.
+   ========================================================================== */
+
+.spatial .dock {
+  background: #eef2fb;
+  border-left: 1px solid #dde5f5;
+}
+
+.spatial .dock-tabs {
+  padding: 8px 8px 0;
+  border-bottom: 0;
+  gap: 2px;
+  background: #eef2fb;
+}
+.spatial .dock-tabs button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px 9px;
+  border-radius: 10px;
+  border-bottom: 0;
+  margin-bottom: 0;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #6b7797;
+}
+.spatial .dock-tabs button::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask: var(--tab-icon) center / contain no-repeat;
+  mask: var(--tab-icon) center / contain no-repeat;
+  opacity: 0.85;
+}
+.spatial .dock-tabs button:hover {
+  background: rgba(255, 255, 255, 0.7);
+  color: #18203a;
+}
+.spatial .dock-tabs button.is-active {
+  background: #ffffff;
+  color: var(--signal);
+  box-shadow: 0 1px 3px rgba(19, 26, 45, 0.07);
+}
+.spatial .dock-tabs sup {
+  position: absolute;
+  margin: -6px 0 0 18px;
+  font-size: 9px;
+  color: var(--signal);
+}
+
+/* Each tab draws its own glyph, keyed by data-tab. */
+.spatial .dock-tabs button[data-tab="outliner"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='8' y1='6' x2='21' y2='6'/><line x1='8' y1='12' x2='21' y2='12'/><line x1='8' y1='18' x2='21' y2='18'/><line x1='3' y1='6' x2='3.01' y2='6'/><line x1='3' y1='12' x2='3.01' y2='12'/><line x1='3' y1='18' x2='3.01' y2='18'/></svg>"); }
+.spatial .dock-tabs button[data-tab="create"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3 20 7.5v9L12 21 4 16.5v-9zM4 7.5 12 12l8-4.5M12 12v9'/></svg>"); }
+.spatial .dock-tabs button[data-tab="object"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='4' width='16' height='16' rx='3'/><path d='M4 10h16'/></svg>"); }
+.spatial .dock-tabs button[data-tab="rig"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='4' r='2'/><path d='m9 20 3-6 3 6'/><path d='M6 8l6 2 6-2'/><path d='M12 6v8'/></svg>"); }
+.spatial .dock-tabs button[data-tab="camera"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m22 8-6 4 6 4V8Z'/><rect width='14' height='12' x='2' y='6' rx='2' ry='2'/></svg>"); }
+.spatial .dock-tabs button[data-tab="lighting"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41'/></svg>"); }
+.spatial .dock-tabs button[data-tab="scene"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><path d='M4 9h16M4 15h16M9 4v16M15 4v16'/></svg>"); }
+.spatial .dock-tabs button[data-tab="design"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><path d='M4 7h10M18 7h2M4 12h4M12 12h8M4 17h9M17 17h3'/><circle cx='16' cy='7' r='2'/><circle cx='10' cy='12' r='2'/><circle cx='15' cy='17' r='2'/></svg>"); }
+.spatial .dock-tabs button[data-tab="layers"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3 21 8l-9 5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5'/></svg>"); }
+.spatial .dock-tabs button[data-tab="export"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 15V4M8 8l4-4 4 4M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4'/></svg>"); }
+.spatial .dock-tabs button[data-tab="setup"] { --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><circle cx='12' cy='12' r='3.2'/><path d='M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4'/></svg>"); }
+
+.spatial .dock-body {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* sections become cards */
+.spatial .ins-section {
+  padding: 14px 15px 15px;
+  border: 1px solid #e2e9f7;
+  border-bottom: 1px solid #e2e9f7;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(19, 26, 45, 0.04);
+}
+.spatial .ins-head {
+  margin-bottom: 11px;
+}
+.spatial .ins-head h3 {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #18203a;
+}
+.spatial .ins-body {
+  gap: 11px;
+}
+.spatial .ins-label {
+  flex: 0 0 62px;
+  font-size: 12px;
+  color: #5a6483;
+}
+
+/* sliders: a blue fill and a white knob, as in the reference */
+.spatial .sp-range input[type="range"] {
+  appearance: none;
+  height: 6px;
+  border-radius: 99px;
+  background: linear-gradient(var(--signal), var(--signal)) 0 / var(--fill, 50%) 100% no-repeat, #e4eaf6;
+}
+.spatial .sp-range input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #c8d4ea;
+  box-shadow: 0 1px 3px rgba(19, 26, 45, 0.18);
+  cursor: pointer;
+}
+.spatial .sp-range input[type="range"]::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #c8d4ea;
+}
+.spatial .sp-range-value {
+  min-width: 56px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #f2f5fc;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: #46527a;
+}
+
+/* segmented controls */
+.spatial .segmented {
+  padding: 3px;
+  border-radius: 10px;
+  background: #f1f4fc;
+  border: 0;
+  gap: 2px;
+}
+.spatial .segmented button {
+  height: 28px;
+  border-radius: 7px;
+  border: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7797;
+}
+.spatial .segmented button:hover {
+  color: #18203a;
+}
+.spatial .segmented button.is-active {
+  background: #dfe8fd;
+  color: var(--signal);
+  font-weight: 600;
+}
+
+/* chips */
+.spatial .sp-chip {
+  height: 27px;
+  border-radius: 8px;
+  border: 1px solid #e2e9f7;
+  background: #f7f9fe;
+  font-size: 11.5px;
+  color: #5a6483;
+}
+.spatial .sp-chip:hover {
+  border-color: #c6d4ee;
+  color: #18203a;
+}
+.spatial .sp-chip.is-active {
+  background: #dfe8fd;
+  border-color: #c3d4fb;
+  color: var(--signal);
+  font-weight: 600;
+}
+
+/* checks read as switches, matching the reference */
+.spatial .sp-check {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 11px;
+  min-height: 32px;
+  font-size: 12.5px;
+  color: #27304d;
+}
+.spatial .sp-box {
+  width: 36px;
+  height: 20px;
+  border-radius: 99px;
+  border: 0;
+  background: #dfe5f2;
+  position: relative;
+  color: transparent;
+  transition: background 140ms ease;
+}
+.spatial .sp-box::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(19, 26, 45, 0.25);
+  transition: transform 140ms ease;
+}
+.spatial .sp-box.is-on {
+  background: var(--signal);
+}
+.spatial .sp-box.is-on::after {
+  transform: translateX(16px);
+}
+
+/* buttons */
+.spatial .btn-row button,
+.spatial .sp-mini {
+  height: 30px;
+  border-radius: 9px;
+  border: 1px solid #e2e9f7;
+  background: #f7f9fe;
+  font-size: 12px;
+  color: #46527a;
+}
+.spatial .btn-row button:hover:not(:disabled),
+.spatial .sp-mini:hover {
+  border-color: #c6d4ee;
+  background: #fff;
+  color: #18203a;
+}
+
+.spatial .ins-more {
+  height: 25px;
+  padding: 0 10px;
+  border-radius: 7px;
+  background: #eef2fb;
+}
+
+/* create tiles */
+.spatial .sp-tile {
+  border: 1px solid #e2e9f7;
+  border-radius: 12px;
+  background: #f8fafe;
+  color: #5a6483;
+}
+.spatial .sp-tile:hover {
+  border-color: var(--signal);
+  background: #fff;
+  color: #18203a;
+}
+
+.spatial .sp-model {
+  border: 1px solid #e2e9f7;
+  border-radius: 12px;
+  background: #f8fafe;
+}
+.spatial .sp-model:hover {
+  border-color: var(--signal);
+  background: #fff;
+}
+
+.spatial .sp-layer {
+  border: 1px solid #e2e9f7;
+  border-radius: 10px;
+  background: #f8fafe;
+}
+.spatial .sp-layer.is-active {
+  border-color: var(--signal);
+  background: #fff;
+}
+
+.spatial .sp-brush.is-active {
+  background: #eef3ff;
+  border-color: #c3d4fb;
+}
+
+.spatial .sp-hex,
+.spatial .sp-text {
+  border-radius: 9px;
+  border-color: #e2e9f7;
+  background: #f7f9fe;
+}
+
+.spatial .ins-note {
+  color: #6b7797;
+}

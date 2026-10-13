@@ -1,0 +1,17 @@
+[package]
+name = "coolvector-brush"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "CoolVector brushes: calligraphic, scatter, art, pattern and bristle brush definitions and stroke geometry"
+
+[lints]
+workspace = true
+
+[dependencies]
+coolvector-geom = { workspace = true }
+coolvector-color = { workspace = true }
+coolvector-doc = { workspace = true }
+kurbo = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

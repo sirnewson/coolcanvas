@@ -1,0 +1,14 @@
+{
+  "name": "coolcanvas-desktop",
+  "private": true,
+  "description": "Build tooling for the CoolCanvas Windows app",
+  "scripts": {
+    "start": "electron app",
+    "dist": "electron-builder --win --x64 --config electron-builder.yml",
+    "dist:dir": "electron-builder --win --x64 --dir --config electron-builder.yml"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  }
+}

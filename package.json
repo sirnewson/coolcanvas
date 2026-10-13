@@ -1,0 +1,42 @@
+{
+  "name": "coolcanvas",
+  "version": "1.0.0",
+  "description": "CoolCanvas \u2014 visual thinking and image studio for Windows. Created by Sir Newson at YXMDigital.com",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5190",
+    "build": "tsc -b editor && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 5191",
+    "engines:native": "node scripts/build-engines.mjs",
+    "engines:web": "node scripts/build-engines.mjs --web",
+    "engines:check": "node scripts/build-engines.mjs --check",
+    "icons": "node scripts/make-icons.mjs",
+    "desktop": "node desktop/scripts/build.mjs && cd desktop && npx electron app",
+    "desktop:build": "node desktop/scripts/build.mjs",
+    "desktop:dir": "node desktop/scripts/build.mjs --dir",
+    "desktop:dist": "node desktop/scripts/build.mjs --dist"
+  },
+  "dependencies": {
+    "@imgly/background-removal": "^1.7.0",
+    "imagetracerjs": "^1.2.6",
+    "immer": "^10.1.1",
+    "konva": "^9.3.16",
+    "lucide-react": "^1.47.0",
+    "perfect-freehand": "^1.2.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-konva": "^18.2.10",
+    "three": "^0.186.1",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.186.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.3"
+  }
+}

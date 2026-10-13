@@ -1,0 +1,15 @@
+node_modules/
+dist/
+out/
+desktop/node_modules/
+desktop/app/web/
+desktop/app/engines/
+desktop/app/studios/
+desktop/app/icon.png
+desktop/release/
+engines/*/target/
+engines/*/dist/
+*.local
+.DS_Store
+tsconfig.tsbuildinfo
+*.tsbuildinfo

@@ -1,0 +1,27 @@
+[package]
+name = "coolphoto-compose"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+coolphoto-geom = { workspace = true }
+coolphoto-color = { workspace = true }
+coolphoto-raster = { workspace = true }
+coolphoto-doc = { workspace = true }
+coolphoto-vector = { workspace = true }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+rayon = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }
+criterion = { workspace = true }
+coolphoto-paint = { workspace = true }
+
+[[bench]]
+name = "compose"
+harness = false
