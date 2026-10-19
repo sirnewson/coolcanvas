@@ -22,7 +22,9 @@ if (import.meta.env.DEV) {
 // Register offline Service Worker
 if ("serviceWorker" in navigator && !import.meta.env.DEV) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch((err) => {
+    // Relative, so the worker is scoped to wherever the app is served from. An absolute
+    // "/sw.js" would ask the host site's root for it and claim that whole origin.
+    navigator.serviceWorker.register("./sw.js").catch((err) => {
       console.warn("[SW] Registration skipped:", err);
     });
   });
