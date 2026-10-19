@@ -13,3 +13,4 @@ engines/*/dist/
 .DS_Store
 tsconfig.tsbuildinfo
 *.tsbuildinfo
+desktop/app/package-lock.json

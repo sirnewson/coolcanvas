@@ -171,9 +171,13 @@ for icon in spec:
     paint(kind, accent, 512).save(os.path.join(dest, kind + "-512.png"))
     paint(kind, accent, 256).save(os.path.join(dest, kind + "-256.png"))
     paint(kind, accent, 512).save(os.path.join(dest, "icon.png"))
-    ims = [paint(kind, accent, s) for s in icon["ico"]]
-    ims[0].save(os.path.join(dest, kind + ".ico"), format="ICO", sizes=[(s, s) for s in icon["ico"]])
-    ims[0].save(os.path.join(dest, "icon.ico"), format="ICO", sizes=[(s, s) for s in icon["ico"]])
+    # Pillow only downscales when it writes an ICO, so the source must be the LARGEST size:
+    # saving from the 16 px image silently produced a one-entry 16x16 .ico, and electron-builder
+    # rejects an installer icon under 256x256.
+    ico_sizes = sorted(icon["ico"])
+    ico_src = paint(kind, accent, ico_sizes[-1])
+    ico_src.save(os.path.join(dest, kind + ".ico"), format="ICO", sizes=[(s, s) for s in ico_sizes])
+    ico_src.save(os.path.join(dest, "icon.ico"), format="ICO", sizes=[(s, s) for s in ico_sizes])
     open(os.path.join(dest, kind + ".svg"), "w", encoding="utf8").write(icon["svg"])
     open(os.path.join(dest, kind + "-small.svg"), "w", encoding="utf8").write(icon["svg"])
     print("icons:", kind, "->", dest)

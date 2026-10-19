@@ -16,6 +16,9 @@ asar: false
 files:
   - "**/*"
   - "!**/*.map"
+  # The native studios come in through extraResources below, as resources/studios. Without this
+  # they would also be packaged from app/studios, putting ~165 MB of exe in the installer twice.
+  - "!studios"
 
 extraResources:
   # The native studios, when they have been built (npm run engines:native).
@@ -38,8 +41,8 @@ extraResources:
     to: "licenses/vector/LICENSE-MIT"
   - from: "../engines/vector/LICENSE-APACHE"
     to: "licenses/vector/LICENSE-APACHE"
-  - from: "../engines/vector/ATTRIBUTION.md"
-    to: "licenses/vector/ATTRIBUTION.md"
+  - from: "../engines/vector/ASSETS.md"
+    to: "licenses/vector/ASSETS.md"
 
 fileAssociations:
   - ext: yxm

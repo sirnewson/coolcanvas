@@ -36,6 +36,9 @@ fs.cpSync(path.join(ROOT, "dist"), web, { recursive: true });
       /engine/<id>/host.html, works in the browser and in the app alike. */
 const engines = path.join(web, "engine");
 fs.rmSync(engines, { recursive: true, force: true });
+// An older layout staged the studios in app/engines. Anything left there would be packaged
+// as a second, stale copy of them, so clear it.
+fs.rmSync(path.join(APP, "engines"), { recursive: true, force: true });
 let staged = [];
 for (const id of ["photo", "vector"]) {
   const from = path.join(ROOT, "out", "studio-web", id);

@@ -18,7 +18,6 @@ const APP_ID = "com.yxmdigital.coolcanvas";
 const BOARD_EXT = "yxm";
 const IS_DEV = !app.isPackaged;
 const WEB_DIR = path.join(__dirname, "web");
-const ENGINE_DIR = path.join(__dirname, "engines");
 const STUDIO_DIR = path.join(__dirname, "studios");
 const DEV_SERVER = process.env.COOLCANVAS_DEV_SERVER; // e.g. http://127.0.0.1:5190
 
@@ -129,14 +128,14 @@ const MIME = {
 
 function serve(request) {
   const url = new URL(request.url);
-  // coolcanvas://app/... — the editor and, under /engine/<id>/, the studios.
-  const root = url.hostname === "engine" ? ENGINE_DIR : WEB_DIR;
+  // coolcanvas://app/... — the editor, and the studios under /engine/<id>/, which the staging
+  // script puts inside the editor's own tree so one path works in the browser and in the app.
   const rel = decodeURIComponent(url.pathname).replace(/^\/+/, "") || "index.html";
-  let file = path.join(root, rel);
-  if (!file.startsWith(root)) return new Response("Forbidden", { status: 403 });
+  let file = path.join(WEB_DIR, rel);
+  if (!file.startsWith(WEB_DIR)) return new Response("Forbidden", { status: 403 });
   if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) {
     // A missing studio must say so rather than quietly serving the editor.
-    if (rel.startsWith("engine/") || url.hostname === "engine") return new Response("Not found", { status: 404 });
+    if (rel.startsWith("engine/")) return new Response("Not found", { status: 404 });
     // The editor is a single page; unknown paths fall back to it.
     file = path.join(WEB_DIR, "index.html");
   }

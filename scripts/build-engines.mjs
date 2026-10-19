@@ -132,7 +132,19 @@ for (const engine of targets) {
   const exe = path.join(targetDir, "release", process.platform === "win32" ? `${engine.bin}.exe` : engine.bin);
   const out = path.join(ROOT, "out", "studios");
   fs.mkdirSync(out, { recursive: true });
-  fs.copyFileSync(exe, path.join(out, path.basename(exe)));
+  const dest = path.join(out, path.basename(exe));
+  try {
+    fs.copyFileSync(exe, dest);
+  } catch (e) {
+    // Windows locks a running executable. Say which one, rather than failing with an errno.
+    if (e.code === "EBUSY" || e.code === "EPERM") {
+      console.error(`
+${label} built, but ${path.basename(dest)} is in use — close the studio and run this again.`);
+      failed += 1;
+      continue;
+    }
+    throw e;
+  }
   copyLicences(cwd, path.join(out, "licenses", engine.id));
   console.log(`${label} → ${path.relative(ROOT, path.join(out, path.basename(exe)))} (${(fs.statSync(exe).size / 1e6).toFixed(1)} MB)`);
 }
