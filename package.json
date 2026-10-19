@@ -1,7 +1,7 @@
 {
   "name": "coolcanvas",
   "version": "1.0.0",
-  "description": "CoolCanvas \u2014 visual thinking and image studio for Windows. Created by Sir Newson at YXMDigital.com",
+  "description": "CoolCanvas — visual thinking and image studio for Windows. Created by Sir Newson at YXMDigital.com",
   "private": true,
   "license": "UNLICENSED",
   "type": "module",
@@ -16,7 +16,8 @@
     "desktop": "node desktop/scripts/build.mjs && cd desktop && npx electron app",
     "desktop:build": "node desktop/scripts/build.mjs",
     "desktop:dir": "node desktop/scripts/build.mjs --dir",
-    "desktop:dist": "node desktop/scripts/build.mjs --dist"
+    "desktop:dist": "node desktop/scripts/build.mjs --dist",
+    "build:site": "tsc -b editor && vite build --base=/apps/coolcanvas/"
   },
   "dependencies": {
     "@imgly/background-removal": "^1.7.0",
