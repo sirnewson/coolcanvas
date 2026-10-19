@@ -12,7 +12,7 @@
 # Clean-room: every entry was written from the plain meaning of the English label using ordinary
 # Brazilian Portuguese computing vocabulary (camada, desfoque, seleção, demarcador ...). No
 # proprietary localisation resource, string table or product UI was consulted or copied; add
-# entries the same way. Product and technology names (CoolPhoto, ArtCraft, OpenType, CMYK, Lab ...)
+# entries the same way. Product and technology names (CoolCanvas, OpenType, CMYK, Lab ...)
 # stay as they are; the trailing "…" of dialog commands is kept.
 
 # Guide layout dialog
@@ -759,11 +759,6 @@
 	Timeline	Linha do tempo
 	Tool Presets	Predefinições de ferramentas
 	Tools	Ferramentas
-	About CoolPhoto	Sobre o CoolPhoto
-	CoolPhoto Website	Site do CoolPhoto
-	CoolPhoto on GitHub	CoolPhoto no GitHub
-	ArtCraft Website	Site do ArtCraft
-	Join the ArtCraft Discord…	Participe do Discord do ArtCraft…
 	Report an Issue…	Relatar um problema…
 	WIA Support…	Suporte a WIA…
 	Apply	Aplicar
@@ -814,7 +809,6 @@
 	All Caps	Tudo em maiúsculas
 	All Slices	Todas as fatias
 	All User Slices	Todas as fatias do usuário
-	All shortcuts reset to CoolPhoto defaults.	Todos os atalhos foram redefinidos para os padrões do CoolPhoto.
 	Alt	Alt
 	Always use pressure for opacity	Sempre usar a pressão para a opacidade
 	Always use pressure for size	Sempre usar a pressão para o tamanho
@@ -1046,7 +1040,6 @@
 	Diffusion	Difusão
 	Discard the embedded profile (don't color manage)	Descartar o perfil incorporado (não gerenciar cores)
 	Discontiguous	Não contíguo
-	Discord	Discord
 	Dismiss	Dispensar
 	Display P3	Display P3
 	Display Text	Texto de exibição
@@ -1175,7 +1168,6 @@
 	Invert All	Inverter tudo
 	Invert has no settings.	Inverter não tem configurações.
 	Italic	Itálico
-	Join us on Discord	Participe do nosso Discord
 	Justify all	Justificar tudo
 	Justify last centered	Justificar com a última linha centralizada
 	Justify last left	Justificar com a última linha à esquerda
@@ -1309,9 +1301,6 @@
 	Perspective Warp is not active	A distorção de perspectiva não está ativa
 	Perspective Warp: draw planes along the image's perspective, then switch to Warp	Distorção de perspectiva: desenhe planos seguindo a perspectiva da imagem e depois mude para Deformar
 	Photo Filter	Filtro de fotos
-	CoolPhoto	CoolPhoto
-	CoolPhoto Manages Colors	O CoolPhoto gerencia as cores
-	CoolPhoto — an open-source, native image editor written in Rust.	CoolPhoto — um editor de imagens nativo e de código aberto escrito em Rust.
 	Pin Depth:	Profundidade do alfinete:
 	Pixel Length:	Comprimento em pixels:
 	Pixels/Centimeter	Pixels/centímetro
@@ -1387,11 +1376,9 @@
 	Import Shortcuts…	Importar atalhos…
 	Load a keyboard shortcut set saved as .kys	Carregar um conjunto de atalhos de teclado salvo como .kys
 	Imported {n} shortcuts from {file}. Click OK to keep them.	{n} atalhos importados de {file}. Clique em OK para mantê-los.
-	{n} commands are not in CoolPhoto.	{n} comandos não existem no CoolPhoto.
 	Keyboard shortcuts imported	Atalhos de teclado importados
 	Your keyboard shortcut set {set} is in use here: {n} shortcuts differ from the defaults. Edit › Keyboard Shortcuts shows them; Reset All to Defaults undoes this.	Seu conjunto de atalhos de teclado {set} está em uso aqui: {n} atalhos diferem dos padrões. Editar › Atalhos de teclado os mostra; Redefinir tudo para o padrão desfaz isso.
 	Import keyboard shortcuts?	Importar atalhos de teclado?
-	CoolPhoto found your keyboard shortcut set {set} from another image editor on this computer: {n} of its shortcuts differ from CoolPhoto's. Import it?	O CoolPhoto encontrou neste computador seu conjunto de atalhos de teclado {set} de outro editor de imagens: {n} de seus atalhos diferem dos do CoolPhoto. Importá-lo?
 	Edit › Keyboard Shortcuts › Reset All to Defaults undoes an import.	Editar › Atalhos de teclado › Redefinir tudo para o padrão desfaz uma importação.
 	Don't Import	Não importar
 	The keyboard shortcut set was not imported: {error}	O conjunto de atalhos de teclado não foi importado: {error}
@@ -1577,7 +1564,6 @@
 	Apple Watch 45mm	Apple Watch 45mm
 	Aqua	Aqua
 	Art & Illustration	Arte e ilustração
-	ArtCraft	ArtCraft
 	Background Eraser Tool	Ferramenta Borracha de plano de fundo
 	Bevel & Emboss	Chanfro e entalhe
 	Blend Mode	Modo de mesclagem
@@ -1613,7 +1599,6 @@
 	Current Tool	Ferramenta atual
 	Custom Shape Tool	Ferramenta Forma personalizada
 	Cyans	Cianos
-	Default CoolPhoto Size	Tamanho padrão do CoolPhoto
 	Delete Workspace	Excluir espaço de trabalho
 	Diamond	Diamante
 	Dimensions:	Dimensões:
@@ -1724,7 +1709,6 @@
 	Pen Tool	Ferramenta Caneta
 	Convert Point Tool	Ferramenta Converter ponto
 	Photo	Foto
-	CoolPhoto website	Site do CoolPhoto
 	Picas	Paicas
 	Pillow Emboss	Entalhe almofadado
 	Pixel Replacement	Substituição de pixels
@@ -2048,7 +2032,6 @@
 	System Info	Informações do sistema
 	More panels	Mais painéis
 	More documents	Mais documentos
-	These settings aren't available in CoolPhoto yet.	Estas configurações ainda não estão disponíveis no CoolPhoto.
 	Graphics	Gráficos
 	Reset GPU Backend	Redefinir backend da GPU
 	Applies at next launch.	Aplica-se na próxima inicialização.
@@ -2625,8 +2608,6 @@
 	Use Global Light	Usar luz global
 	Native file drag-and-drop is unavailable	Arrastar e soltar arquivos não está disponível
 	Native file drag-and-drop is not supported on Wayland yet. Use File › Open, or copy the image in your file manager and paste it with {paste}.	O recurso nativo de arrastar e soltar arquivos ainda não funciona no Wayland. Use Arquivo › Abrir ou copie a imagem no gerenciador de arquivos e cole-a com {paste}.
-	To drop files, start CoolPhoto under XWayland: `{command}`	Para soltar arquivos, execute o CoolPhoto no XWayland: `{command}`
-	Or set Preferences › Performance › Linux display server to X11: CoolPhoto then always starts under XWayland.	Ou defina Preferências › Desempenho › Servidor de exibição Linux como X11: o CoolPhoto passa a iniciar sempre no XWayland.
 	Edit › Paste	Editar › Colar
 	Use File › Open, or paste a copied image with {paste}.	Use Arquivo › Abrir ou cole uma imagem copiada com {paste}.
 	Mixer Brush Tool	Ferramenta Pincel misturador
@@ -2642,7 +2623,6 @@
 	Automatic uses GPU acceleration when available and falls back to CPU rendering on errors.	O modo automático usa a aceleração por GPU quando disponível e volta para a renderização por CPU em caso de erros.
 	Switched to CPU rendering	Renderização alterada para CPU
 	GPU acceleration could not continue. Your documents are unchanged.	A aceleração por GPU não pôde continuar. Seus documentos não foram alterados.
-	CoolPhoto is using the CPU image compositor. The window may still use your graphics adapter.	O CoolPhoto está usando o compositor de imagens da CPU. A janela ainda pode usar seu adaptador gráfico.
 	Retry GPU requires a restart. Save your work first.	Tentar a GPU novamente exige reiniciar. Salve seu trabalho primeiro.
 	Keep Using CPU	Continuar usando a CPU
 	Retry GPU	Tentar a GPU novamente
@@ -2888,7 +2868,6 @@ fontWeight	Italic	Itálico
 	Color to Alpha…	Cor para alfa…
 	Transparency Threshold	Limiar de transparência
 	Opacity Threshold	Limiar de opacidade
-	CoolPhoto — Screen Color Picker	CoolPhoto — Seletor de cor da tela
 
 	Rasterize svg groups deeper than	Rasterizar grupos SVG além desta profundidade
 	0 turns this threshold off; SVG groups nested deeper than 100 levels are always rasterized.	0 desativa este limite; grupos SVG aninhados em mais de 100 níveis são sempre rasterizados.
@@ -3232,7 +3211,6 @@ layerLabel	No Color	Sem cor
 	Restart Required	Reinicialização necessária
 	Restart	Reiniciar
 	Quit	Sair
-	Quit CoolPhoto	Sair do CoolPhoto
 	Close Window	Fechar janela
 	New Window	Nova janela
 	Open Image	Abrir imagem
@@ -3436,7 +3414,6 @@ layerLabel	No Color	Sem cor
 	Custom Pixel Aspect Ratio	Proporção de pixel personalizada
 	32-bit Preview Options	Opções de visualização de 32 bits
 	New Guide	Nova guia
-	Join the ArtCraft Discord	Entrar no Discord do ArtCraft
 	Report an Issue	Relatar um problema
 	Load Files into Stack	Carregar arquivos em pilha
 	Statistics	Estatísticas
@@ -3736,7 +3713,6 @@ layerLabel	No Color	Sem cor
 	Mezzotint	Meia-tinta
 	Mosaic	Mosaico
 	Motion Blur	Desfoque de movimento
-	Native file drag-and-drop is not supported on Wayland yet. Use File › Open, or run CoolPhoto under XWayland with `WAYLAND_DISPLAY= coolphoto`.	Arrastar e soltar arquivos nativamente ainda não é suportado no Wayland. Use Arquivo › Abrir ou execute o CoolPhoto sob XWayland com `WAYLAND_DISPLAY= coolphoto`.
 	Neon Glow	Brilho neon
 	New Guide Layout	Novo layout de guias
 	New Video Layer from File	Nova camada de vídeo a partir de arquivo
@@ -3891,7 +3867,6 @@ layerLabel	No Color	Sem cor
 	{name} (Photoshop)	{name} (Photoshop)
 	{message} ({note})	{message} ({note})
 @plural	Loaded {n} action from {file}|Loaded {n} actions from {file}	{n} ação carregada de {file}|{n} ações carregadas de {file}
-@plural	{n} step has no CoolPhoto equivalent yet|{n} steps have no CoolPhoto equivalent yet	{n} etapa ainda não tem equivalente no CoolPhoto|{n} etapas ainda não têm equivalente no CoolPhoto
 @plural	Saved {n} action to {file}|Saved {n} actions to {file}	{n} ação salva em {file}|{n} ações salvas em {file}
 @plural	{n} step with no Photoshop equivalent left out|{n} steps with no Photoshop equivalent left out	{n} etapa sem equivalente no Photoshop foi omitida|{n} etapas sem equivalente no Photoshop foram omitidas
 

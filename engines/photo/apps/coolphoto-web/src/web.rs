@@ -77,7 +77,9 @@ pub fn start() {
                 canvas,
                 options,
                 Box::new(move |cc| {
-                    CoolPhotoApp::setup_context(&cc.egui_ctx, ThemeKind::Pro);
+                    // Styled before the app exists, so the first frame is already light rather than
+                    // flashing the upstream dark theme; preferences take over from the frame after.
+                    CoolPhotoApp::setup_context(&cc.egui_ctx, ThemeKind::CoolCanvas);
                     let inbox: Inbox = Arc::default();
                     let served: Served = Arc::default();
                     load_font_manifest(served.clone(), cc.egui_ctx.clone());
@@ -106,7 +108,7 @@ pub fn start() {
         if let Some(el) = document.get_element_by_id("coolphoto_loading") {
             match result {
                 Ok(()) => el.remove(),
-                Err(e) => el.set_inner_html(&format!("<p>CoolPhoto failed to start: {e:?}</p><p>A browser with WebGPU or WebGL2 is required.</p>")),
+                Err(e) => el.set_inner_html(&format!("<p>Photo Studio failed to start: {e:?}</p><p>A browser with WebGPU or WebGL2 is required.</p>")),
             }
         }
     });

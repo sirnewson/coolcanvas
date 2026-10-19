@@ -510,7 +510,7 @@ fn persist(app: &mut CoolPhotoApp, now: f64) -> Option<f64> {
                 app.ui.status = crate::i18n::fmt(tl!(template), &[("error", &e)]);
                 app.ui.status_error = true;
             } else if failures == SAVE_NOTICE_AFTER {
-                let lines = vec![e, "CoolPhoto keeps retrying; until a save succeeds, preference changes are lost when it closes.".into()];
+                let lines = vec![e, "Photo Studio keeps retrying; until a save succeeds, preference changes are lost when it closes.".into()];
                 let id = crate::notices::post(app, "Preferences can't be saved", lines, true, None);
                 app.prefs_rt.save_retry.notice = Some(id);
             }
@@ -1201,7 +1201,7 @@ fn prefs_body(ui: &mut egui::Ui, f: &mut Map<String, Value>, system: Option<egui
                     f.get("__order").and_then(|o| o.get(&section)).and_then(|v| serde_json::from_value(v.clone()).ok()).unwrap_or_default();
                 if !has_visible_fields(&values, &section) {
                     ui.add_space(4.0);
-                    ui.label(RichText::new(tl!("These settings aren't available in CoolPhoto yet.")).color(t.text_faint));
+                    ui.label(RichText::new(tl!("These settings aren't available in Photo Studio yet.")).color(t.text_faint));
                 } else if let Some(obj) = values.get_mut(&section).and_then(Value::as_object_mut) {
                     section_fields(ui, &section, obj, &order, lang, system, filter);
                     if section == "fileHandling" {
@@ -1760,7 +1760,7 @@ fn shortcuts_body(app: &mut CoolPhotoApp, ui: &mut egui::Ui, f: &mut Map<String,
             }
             if ui.button(tl!("Reset All to Defaults")).clicked() {
                 overrides.clear();
-                message = tl!("All shortcuts reset to CoolPhoto defaults.").into();
+                message = tl!("All shortcuts reset to Photo Studio defaults.").into();
                 message_warning = false;
             }
             // A Photoshop set (`.kys`) fills the overrides; the file arrives after this frame
@@ -2074,6 +2074,28 @@ mod tests {
     }
     use super::*;
     use std::sync::{Arc, Mutex};
+
+    /// A fresh studio opens in CoolCanvas's own light theme, matching the board it opened from.
+    ///
+    /// Three things must agree: the preference defaults, what `selected_theme` resolves from them,
+    /// and what a frame of `sync_appearance` leaves on the app. Vector's equivalent drifted apart
+    /// once — its engine default still said "mediumDark" — and a brand-new web studio opened dark
+    /// while the native one, which had a preferences file, did not.
+    #[test]
+    fn a_fresh_studio_opens_in_the_coolcanvas_theme() {
+        let interface = prefs::Interface::default();
+        assert_eq!(interface.theme, prefs::Theme::CoolCanvas, "the theme preference");
+        assert_eq!(interface.appearance_mode, AppearanceMode::Light, "the appearance mode");
+        assert_eq!(interface.light_theme, LightTheme::CoolCanvas, "the light slot");
+        // Light mode ignores the system, so a dark desktop does not change what a studio opens as.
+        assert_eq!(selected_theme(&interface, Some(egui::Theme::Dark)), ThemeKind::CoolCanvas);
+        let mut app = CoolPhotoApp::new(coolphoto_engine::Session::new(), Default::default());
+        let ctx = egui::Context::default();
+        CoolPhotoApp::setup_context(&ctx, Default::default());
+        sync_appearance(&mut app, &ctx);
+        assert_eq!(app.ui.theme, ThemeKind::CoolCanvas, "after a frame of sync_appearance");
+        assert!(!Tokens::for_kind(app.ui.theme).dark(), "the fresh studio is light");
+    }
 
     #[test]
     fn appearance_resolves_both_saved_themes_and_follows_system() {

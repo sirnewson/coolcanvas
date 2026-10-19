@@ -122,8 +122,9 @@ async fn run(host: Host, canvas: web_sys::HtmlCanvasElement, moving: Option<Movi
                     None => {
                         let mut app = CoolVectorApp::new(Session::new(), services);
                         // CoolCanvas's own look, so a studio matches the board it opened from.
-                        // A brightness the person picks afterwards is kept and still wins.
-                        app.ui.brightness = coolvector_ui_egui::theme::Brightness::CoolCanvas;
+                        // It is `UiState::default()`'s brightness; applied here so the first frame
+                        // is already light. Changing it in Window lasts for this session — the web
+                        // build keeps no UI state across a reload, unlike the native one.
                         coolvector_ui_egui::theme::apply(&cc.egui_ctx, app.ui.brightness);
                         app
                     }
@@ -138,7 +139,7 @@ async fn run(host: Host, canvas: web_sys::HtmlCanvasElement, moving: Option<Movi
                 el.remove();
             }
         }
-        (Err(e), None) => notice(&[&format!("CoolVector failed to start: {}", js_err(e)), "A browser with WebGPU or WebGL2 is required."]),
+        (Err(e), None) => notice(&[&format!("Vector Studio failed to start: {}", js_err(e)), "A browser with WebGPU or WebGL2 is required."]),
         (Err(e), Some(kept)) => {
             log::error!("coolvector-web: couldn't restart the graphics: {}", js_err(e));
             give_up(slot.borrow_mut().take(), kept);
@@ -168,7 +169,7 @@ fn detect_language() {
     }
     i18n::set_system_locales(tags.as_slice());
     if let Some(el) = element(LOADING_ID) {
-        el.set_text_content(Some(i18n::message(i18n::system_lang(), "Loading CoolVector…").as_str()));
+        el.set_text_content(Some(i18n::message(i18n::system_lang(), "Loading Vector Studio…").as_str()));
     }
 }
 

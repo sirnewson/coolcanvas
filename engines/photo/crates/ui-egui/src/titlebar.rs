@@ -613,9 +613,9 @@ mod tests {
             for a in &widgets {
                 assert!(a.right() <= min.left(), "{a:?} runs into the caption buttons at {width}");
             }
-            // Wide windows show the whole group; the narrowest drops Discord (also Help › Discord).
-            let has_discord = texts(&out).iter().any(|(t, _)| t == "Discord");
-            assert_eq!(has_discord, width > 1000.0, "Discord at {width}");
+            // The bar carries no community button at any width (see `links`: the interface
+            // names CoolCanvas and nothing else).
+            assert!(!texts(&out).iter().any(|(t, _)| t == "Discord"), "a Discord button is back at {width}");
         }
     }
 

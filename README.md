@@ -41,20 +41,19 @@ npm run desktop:dist     # CoolCanvas-Setup-1.0.0.exe in desktop/release
 
 ```
 editor/            the canvas — React, Konva, Zustand (first-party)
-engines/photo/     Photo Studio engine   — Rust, from PhotoCraft (MIT OR Apache-2.0)
-engines/vector/    Vector Studio engine  — Rust, from VectorCraft (MIT OR Apache-2.0)
+engines/photo/     Photo Studio engine   — Rust (MIT OR Apache-2.0)
+engines/vector/    Vector Studio engine  — Rust (MIT OR Apache-2.0)
 integrations/      CoolCanvas's own host page around the engines
 desktop/           the Windows shell — Electron, the app protocol, native studios
 scripts/           engine builds and the app icons
 docs/ENGINES.md    what the engines are, where they came from, and their limits
 ```
 
-The two studio engines are modified copies of the ArtCraft team's open-source
-[PhotoCraft](https://github.com/storytold/photocraft) and
-[VectorCraft](https://github.com/storytold/vectorcraft), renamed into this project, with
-their licences and attribution kept and their trademarked brand marks removed.
+The two studio engines are built from Rust source in this repository. They began as
+open-source projects under MIT OR Apache-2.0 and were renamed, rethemed and rebranded into
+CoolCanvas; each keeps its `LICENSE-MIT`, `LICENSE-APACHE`, `NOTICE` and `ATTRIBUTION.md`,
+which ship with the app and name where the code came from.
 [docs/ENGINES.md](docs/ENGINES.md) sets out exactly what was changed and what was not.
-CoolCanvas is not affiliated with, nor endorsed by, the ArtCraft team.
 
 ## Moving work between the workspaces
 

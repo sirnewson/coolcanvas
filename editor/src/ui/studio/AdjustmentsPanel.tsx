@@ -82,7 +82,7 @@ export function AdjustmentsPanel() {
 
   return (
     <div className="pc-adjustments-panel">
-      {/* 1. Header & Grid of Adjustments (Photocraft adjustments grid) */}
+      {/* 1. Header and the adjustments grid */}
       <div className="pc-panel-section">
         <div className="pc-section-header">
           <span className="pc-section-title">Add Adjustment Layer</span>

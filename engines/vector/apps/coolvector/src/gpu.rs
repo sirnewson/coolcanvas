@@ -54,8 +54,7 @@ pub const SKIP_ENV: &str = "COOLVECTOR_GPU_SKIP";
 const NAME_ENV: &str = "WGPU_ADAPTER_NAME";
 
 /// Where to read how to choose another adapter, for the error that ends the app.
-const HELP: &str =
-    "to choose a graphics adapter, see https://github.com/storytold/vectorcraft/blob/main/docs/development.md#desktop-graphics-processor";
+const HELP: &str = "to choose a graphics adapter, set WGPU_ADAPTER_NAME to part of its name, or see docs/ENGINES.md";
 
 /// Frames the UI ran before the failure, below which it was still starting up. The failure in
 /// #502 came on the first or second frame; later, the adapter has proved itself, and a lost

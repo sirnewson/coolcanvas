@@ -933,7 +933,10 @@ impl Default for Prefs {
             plugins_folder: String::new(),
             scratch_primary: s("Startup"),
             scratch_secondary: s("None"),
-            ui_brightness: s("mediumDark"),
+            // CoolCanvas's own look, matching `UiState::default()` and the board. This
+            // preference wins every frame (`prefs_dialog::apply_runtime`), so it is the one
+            // that decides what a fresh studio looks like.
+            ui_brightness: s("coolCanvas"),
             canvas_color: s("matchUi"),
             auto_collapse_icon_panels: false,
             tool_group_labels: true,

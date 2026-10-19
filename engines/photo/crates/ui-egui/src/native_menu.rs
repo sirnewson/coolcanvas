@@ -103,7 +103,7 @@ pub enum Standard {
     CloseWindow,
 }
 
-/// Hide CoolPhoto: a custom item (the predefined one always takes ⌘H, which is View › Extras).
+/// Hide CoolCanvas Photo Studio: a custom item (the predefined one always takes ⌘H, which is View › Extras).
 pub const HIDE: &str = "app.hide";
 /// Minimize: a custom item (the predefined one always takes ⌘M, which is Curves).
 pub const MINIMIZE: &str = "window.minimize";
@@ -820,8 +820,8 @@ mod tests {
             ]
         );
         let quit = l.bar.find("file.exit").unwrap();
-        assert_eq!((quit.label.as_str(), quit.shortcut.as_deref()), ("Quit CoolPhoto", Some("Cmd+Q")));
-        assert_eq!(l.bar.find("help.about").unwrap().label, "About CoolPhoto");
+        assert_eq!((quit.label.as_str(), quit.shortcut.as_deref()), ("Quit CoolCanvas Photo Studio", Some("Cmd+Q")));
+        assert_eq!(l.bar.find("help.about").unwrap().label, "About Photo Studio");
     }
 
     #[test]

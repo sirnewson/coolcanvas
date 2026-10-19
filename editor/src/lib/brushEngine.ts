@@ -1,5 +1,5 @@
 /**
- * Professional Brush Engine inspired by Photocraft `crates/paint`.
+ * Professional brush engine, following the photo engine's `crates/paint`.
  * Features presets, dynamics (size jitter, angle jitter, scatter), smoothing, flow and stamp generation.
  */
 

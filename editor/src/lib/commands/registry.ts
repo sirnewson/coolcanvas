@@ -1,6 +1,6 @@
 /**
  * FlowCanvas Engine Command Registry.
- * Inspired by Photocraft's central command registry (`crates/engine` & `crates/automation`).
+ * Following the photo engine's central command registry (`crates/engine` and `crates/automation`).
  * Every tool, menu item, CLI script, and MCP server invokes actions through this registry.
  */
 

@@ -1,5 +1,5 @@
 /**
- * Color and Swatches Panel matching Photocraft `crates/ui-egui/src/swatches_ui.rs`.
+ * Color and swatches panel, matching the photo engine's `crates/ui-egui/src/swatches_ui.rs`.
  * Dual foreground/background colors, swatches library and precision color readouts.
  */
 

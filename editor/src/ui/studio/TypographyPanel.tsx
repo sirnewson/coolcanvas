@@ -1,6 +1,6 @@
 /**
  * Editable Typography (Character & Paragraph) Panel.
- * Directly mirrors Photocraft `crates/ui-egui/src/type_panels_ui.rs`.
+ * Mirrors the photo engine's `crates/ui-egui/src/type_panels_ui.rs`.
  */
 
 import { useMemo } from "react";

@@ -119,7 +119,7 @@ export function Inspector() {
 
   return (
     <>
-      {/* Photocraft Pro Layer Header (Image 6) */}
+      {/* Layer header */}
       <div className="pc-props-header">
         <div className="pc-props-thumb-box">
           <span className="pc-props-icon">{kindIcon}</span>

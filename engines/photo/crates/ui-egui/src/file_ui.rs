@@ -688,7 +688,7 @@ fn download_for_web(app: &mut CoolPhotoApp, mut p: Value) -> Result<Value, Strin
 pub fn open_print(app: &mut CoolPhotoApp) -> u64 {
     let mut f = Map::new();
     f.insert("__print".into(), json!(true));
-    f.insert("__label".into(), json!("CoolPhoto Print Settings"));
+    f.insert("__label".into(), json!("Photo Studio Print Settings"));
     if let Some(Value::Object(m)) = app.session.file_menu.last_print.clone() {
         f.extend(m);
     }
@@ -894,7 +894,7 @@ fn print_body(app: &mut CoolPhotoApp, ui: &mut egui::Ui, f: &mut Map<String, Val
                 "colorHandling",
                 &[
                     ("printerManages", tl!("Printer Manages Colors")),
-                    ("coolphotoManages", tl!("CoolPhoto Manages Colors")),
+                    ("coolphotoManages", tl!("Photo Studio Manages Colors")),
                     ("noColorManagement", tl!("No Color Management")),
                 ],
                 240.0,

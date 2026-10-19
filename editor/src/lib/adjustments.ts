@@ -1,6 +1,6 @@
 /**
- * Non-destructive adjustment layer evaluation matching Adobe Photoshop & Photocraft.
- * Reference: Photocraft `crates/compose/src/adjust.rs` & `crates/doc/src/adjust.rs`
+ * Non-destructive adjustment layer evaluation, matching Adobe Photoshop's model.
+ * Reference: the photo engine's `crates/compose/src/adjust.rs` and `crates/doc/src/adjust.rs`
  */
 
 import type { AdjustmentType } from "../types";

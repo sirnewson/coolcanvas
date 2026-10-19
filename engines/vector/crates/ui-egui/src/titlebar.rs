@@ -273,11 +273,12 @@ mod tests {
                     assert!(!a.shrink(0.5).intersects(b.shrink(0.5)), "{a:?} overlaps {b:?} at {width}");
                 }
             }
-            // Wide windows show the whole group; narrow ones drop Discord, then the search icon.
+            // Wide windows show the whole group; narrow ones drop the search icon. The bar
+            // carries no community button at any width (see `community`).
             let texts: Vec<String> = texts(&out).into_iter().map(|(t, _)| t).collect();
             let has = |s: &str| texts.iter().any(|t| t == s);
-            assert_eq!(has("Discord"), width > 1000.0, "{width}: {texts:?}");
-            // Search is an icon only (as in CoolPhoto): its label lives in the tooltip.
+            assert!(!has("Discord"), "a Discord button is back at {width}: {texts:?}");
+            // Search is an icon only (as in Photo Studio): its label lives in the tooltip.
             assert!(!has("Search commands and tools"), "{width}: {texts:?}");
         }
     }

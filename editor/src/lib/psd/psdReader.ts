@@ -1,6 +1,6 @@
 /**
  * Pure TypeScript PSD (Photoshop Document) Decoder.
- * Clean-room implementation compliant with Adobe Photoshop Specification and Photocraft psd engine.
+ * Clean-room implementation of the Adobe Photoshop file format specification.
  */
 
 import type { CanvasObject } from "../../types";

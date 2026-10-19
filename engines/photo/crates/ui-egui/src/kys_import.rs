@@ -58,7 +58,7 @@ pub fn import_text(app: &mut CoolPhotoApp, file_name: &str, text: &str) -> Resul
     if !plan.unknown.is_empty() {
         let u = plan.unknown.len().to_string();
         message.push(' ');
-        message.push_str(&crate::i18n::fmt(tl!("{n} commands are not in CoolPhoto."), &[("n", &u)]));
+        message.push_str(&crate::i18n::fmt(tl!("{n} commands are not in Photo Studio."), &[("n", &u)]));
     }
     f.insert("tab".into(), json!(0));
     f.insert("overrides".into(), json!(overrides));
@@ -183,7 +183,7 @@ pub fn show_offer(app: &mut CoolPhotoApp, ctx: &egui::Context) {
     let n = offer.changes.to_string();
     let line = crate::i18n::fmt(
         tl!(
-            "CoolPhoto found your keyboard shortcut set {set} from another image editor on this computer: {n} of its shortcuts differ from CoolPhoto's. Import it?"
+            "Photo Studio found your keyboard shortcut set {set} from another image editor on this computer: {n} of its shortcuts differ from its own. Import it?"
         ),
         &[("set", &offer.set), ("n", &n)],
     );

@@ -25,8 +25,20 @@ them is what their licences allow and what this repository does, in the open:
 - The upstream's **trademarked brand marks and application icons were removed**
   (`docs/brand/`, `assets/app-icon/`). Their own terms require that of forks, and CoolCanvas
   draws its own icons instead (`scripts/make-icons.mjs`).
+- **No upstream brand reaches the interface.** The Discord buttons, the product pages and the
+  upstream issue tracker are gone from the title bar, start screens, Help menus and About boxes;
+  the only link is CoolCanvas's own. A test in each engine asserts it
+  (`no_upstream_brand_reaches_the_interface`), and the translations of those strings were removed
+  with them. The derivation is recorded in the files below, and in this document, which is where a
+  licence asks for it — not in the running app.
+- The studios call themselves **Photo Studio** and **Vector Studio** throughout — window titles,
+  start screens, About, menus and messages — rather than the crate names `coolphoto` /
+  `coolvector`, which stay internal.
 - `LICENSE-MIT`, `LICENSE-APACHE`, `NOTICE` and `ATTRIBUTION.md` stay with each engine and
-  ship with the app. Each `NOTICE` names the upstream project, version and licence.
+  ship with the app. Each `NOTICE` names the upstream project, version and licence. This is what
+  both licences require: MIT asks that the notice accompany the software, and Apache-2.0 §4(d)
+  accepts the distributed `NOTICE` file as the place for attribution. Neither asks for a credit in
+  the user interface, which is why there is none.
 - Everything inside those engines — the imaging, PSD, colour management, GPU compositing,
   path geometry, text and automation code — is the upstream's work. CoolCanvas is not
   affiliated with, nor endorsed by, the ArtCraft team.

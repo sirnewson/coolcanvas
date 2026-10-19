@@ -364,9 +364,9 @@ pub const UI_COMMANDS: &[(&str, &str, &str, &str)] = &[
         "",
         "{} opens the Save PDF dialog; with params = document.exportPdf options written to path (asked when missing; viewAfterSaving opens the file) → {path, bytes, warnings}",
     ),
-    ("help.about", "About CoolVector", "", "{}"),
+    ("help.about", "About Vector Studio", "", "{}"),
     ("help.commandPalette", "Search Commands…", "Cmd+Shift+/", "{}"),
-    ("app.quit", "Quit CoolVector", "Cmd+Q", "{}"),
+    ("app.quit", "Quit CoolCanvas Vector Studio", "Cmd+Q", "{}"),
     (
         "ui.swatchOptions",
         "Swatch Options…",
@@ -2040,13 +2040,13 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
     let panel = |label: &'static str, id: &'static str| cp(label, "window.panel", json!({ "panel": id }));
     vec![
         (
-            // The application menu: About and Discord only. The in-window bar never shows it (File
+            // The application menu: About and the website link only. The in-window bar never shows it (File
             // is first there, as in Illustrator); on macOS `native_menu::mac_layout` composes the
             // App menu from this entry and the other menus (About from Help, Settings from Edit,
             // Quit from File, Language and Appearance synthesized). It stays first: `from_tree`
             // gives the first menu the App role.
             "CoolVector",
-            vec![c("About CoolVector", "help.about"), c("Join Our Discord", "help.discord")],
+            vec![c("About Vector Studio", "help.about"), c("CoolCanvas Website", "help.website")],
         ),
         (
             "File",
@@ -2673,15 +2673,12 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
         (
             "Help",
             vec![
-                c("Join Our Discord", "help.discord"),
-                c("ArtCraft Website", "help.website"),
-                c("CoolVector on getartcraft.com", "help.appPage"),
-                c("CoolVector on GitHub", "help.github"),
+                c("CoolCanvas Website", "help.website"),
                 Sep,
                 c("Search Commands…", "help.commandPalette"),
-                todos("CoolVector Help…", "F1"),
+                todos("Vector Studio Help…", "F1"),
                 Sep,
-                c("About CoolVector", "help.about"),
+                c("About Vector Studio", "help.about"),
             ],
         ),
     ]
@@ -3235,7 +3232,7 @@ pub fn invoke(app: &mut CoolVectorApp, id: &str, p: Value) {
         return;
     }
     // Help links: the command returns the URL; a menu click opens it (agents just get the URL).
-    if matches!(id, "help.discord" | "help.website" | "help.appPage" | "help.github") {
+    if id == "help.website" {
         app.open_link(id);
         return;
     }

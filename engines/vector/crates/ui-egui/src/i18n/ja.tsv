@@ -14,7 +14,6 @@
 # tested) — and the status and error messages (`@msg` rows at the end, `COMPLETE_MESSAGES`, tested).
 # Left in English on purpose (`MENU_KEEP_AS_IS` in the tests): the product name, language
 # names, OpenType, the built-in workspace names and the bracketed perspective grid preset names.
-	About CoolVector	CoolVector について
 	All Scripts	すべての文字
 	Anchors:	アンカー:
 	Any Kind	すべての種類
@@ -45,7 +44,6 @@
 	Favorites	お気に入り
 	Flip	反転
 	Japanese	日本語
-	Join Our Discord	Discord に参加
 	Line-end Punctuation Half Width	行末約物半角
 	Mojikumi Set	文字組み
 	Kinsoku Set	禁則処理
@@ -69,7 +67,6 @@
 	Medium Dark	やや暗い
 	Medium Light	やや明るい
 	Light	明るい
-	Quit CoolVector	CoolVector を終了
 	File	ファイル
 	New…	新規…
 	New from Template…	テンプレートから新規…
@@ -644,11 +641,7 @@
 	Save Swatch Library…	スウォッチライブラリを保存…
 	Symbol Libraries	シンボルライブラリ
 	Help	ヘルプ
-	ArtCraft Website	ArtCraft の Web サイト
-	CoolVector on getartcraft.com	getartcraft.com の CoolVector
-	CoolVector on GitHub	GitHub の CoolVector
 	Search Commands…	コマンドを検索…
-	CoolVector Help…	CoolVector ヘルプ…
 	Preview	プレビュー
 	Show Edges	エッジを表示
 	Show Corner Widget	コーナーウィジェットを表示
@@ -833,7 +826,6 @@
 	Appearance Panel	アピアランスパネル
 	Appearance of Black	ブラックのアピアランス
 	Appearance panel	アピアランスパネル
-	Applies the next time CoolVector starts.	CoolVector の次回起動時に適用されます。
 	Applies when the linked file is relinked or updated.	リンクファイルを再リンクまたは更新したときに適用されます。
 	Apply Brush	ブラシを適用
 	Apply Character Style	文字スタイルを適用
@@ -853,7 +845,6 @@
 	Arrange: Bring to Front	重ね順: 最前面へ
 	Arrowheads:	矢印:
 	Art using a deleted global swatch keeps its colour.	削除したグローバルスウォッチを使っているアートは、そのカラーを保持します。
-	ArtCraft website	ArtCraft の Web サイト
 	Artboard Options	アートボードオプション
 	Artboard Options: edit with the Artboard tool	アートボードオプション: アートボードツールで編集
 	Artboard Options…	アートボードオプション…
@@ -1533,8 +1524,6 @@
 	Isolate Group	グループを分離
 	Italian	イタリア語
 	Join Tool	結合ツール
-	Join our Discord	Discord に参加
-	Join the ArtCraft community on Discord (discord.gg/artcraft)	Discord で ArtCraft コミュニティに参加 (discord.gg/artcraft)
 	Join the lines of each paragraph	段落内の行を連結
 	Justification…	文字組み…
 	Keep Formatting	書式を保持
@@ -2197,7 +2186,6 @@
 	{count} folder(s) or file(s) couldn't be read	{count} 個のフォルダーまたはファイルを読み込めませんでした
 	The search stopped at its limit: search a smaller folder.	検索は上限で停止しました。より小さなフォルダーを検索してください。
 	Copy only fonts you own or are licensed to install.	所有しているフォント、またはインストールするライセンスがあるフォントだけをコピーしてください。
-	CoolVector copies the fonts to {folder}.	CoolVector はフォントを {folder} にコピーします。
 	Registry name:	レジストリ名:
 	Release Compound Shape	複合シェイプを解除
 	Release Opacity Mask	不透明マスクを解除
@@ -2273,7 +2261,6 @@
 	Reverse Path Direction On	パスの方向を反転: オン
 	Revert to the saved version of “{name}”?	「{name}」を保存済みの状態に戻しますか？
 	Replace “{name}”, the file this document was opened from?	このドキュメントの開き元のファイル「{name}」を置き換えますか？
-	Opening it left out what CoolVector can't read yet ({what}), so replacing it loses that for good. Save under another name to keep it.	開いたときに CoolVector がまだ読み込めない内容（{what}）が除外されたため、置き換えるとそれは完全に失われます。保持するには別の名前で保存してください。
 	Right Grid:	右グリッド:
 	Right Indent	右インデント
 	Right Plane	右面
@@ -2780,7 +2767,6 @@
 	Variation:	バリエーション:
 	Vector Halftone	ベクトルハーフトーン
 	Vector illustration — fast, open, scriptable.	ベクターイラスト — 高速・オープン・スクリプト対応
-	CoolVector didn't quit normally last time. These documents had unsaved changes:	CoolVector は前回正常に終了しませんでした。次のドキュメントに未保存の変更があります:
 	Vectors	ベクター
 	Version {version} — open-source vector illustration in pure Rust.	バージョン {version} — Rust だけで書かれたオープンソースのベクターイラストアプリ。
 	Version:	バージョン:
@@ -2801,7 +2787,6 @@
 	Web Shift	Web シフト
 	Web Snap:	Web スナップ:
 	Weight:	線幅:
-	Welcome to CoolVector	CoolVector へようこそ
 	When pasting text	テキストをペーストするとき
 	White	白
 	Widget Position:	ウィジェットの位置:
@@ -2946,7 +2931,6 @@
 	Delete these {n} graphic styles?	これら {n} 個のグラフィックスタイルを削除しますか？
 	Delete this {n} graphic style?	この {n} 個のグラフィックスタイルを削除しますか？
 	Discarded {} recovered document(s)	復元したドキュメント {} 個を破棄しました
-	Discord	Discord
 	Do Not Move	移動しない
 	Document Swatches	ドキュメントのスウォッチ
 	Document profile	ドキュメントプロファイル
@@ -3099,7 +3083,6 @@
 	Packaged {n} file(s){note}	{n} 個のファイルをパッケージしました{note}
 	Page information	ページ情報
 	Paragraph Style	段落スタイル
-	Part of ArtCraft. MIT OR Apache-2.0. Fonts: Source Sans 3, Inter, JetBrains Mono (OFL). Icons: Lucide (ISC) + CoolVector.	ArtCraft の一員。MIT OR Apache-2.0。フォント：Source Sans 3、Inter、JetBrains Mono (OFL)。アイコン：Lucide (ISC) + CoolVector。
 	Perspective grid presets	遠近グリッドプリセット
 	Phone 390×844	スマートフォン 390×844
 	Place onto a new locked, dimmed template layer below the current layer	現在のレイヤーの下に、ロックされ淡色表示の新規テンプレートレイヤーとして配置
@@ -3328,7 +3311,6 @@ axis	Both	両方
 
 # The macOS menu bar (native_menu): the app and Window menus' system items, Settings pages.
 	Services	サービス
-	Hide CoolVector	CoolVector を隠す
 	Zoom	拡大/縮小
 	Bring All to Front	すべてを手前に移動
 	Settings	環境設定
@@ -3337,7 +3319,6 @@ theme	Appearance	外観
 	On: one locked object showing the document, updated when it changes.	オン：ドキュメントを表示するロックされた 1 つのオブジェクト。ドキュメントの変更時に更新されます。
 	Off: an editable copy of its art, embedded in this document.	オフ：アートの編集可能なコピーをこのドキュメントに埋め込みます。
 	Images: link to the file instead of only embedding it.	画像：埋め込むだけでなく、ファイルにリンクします。
-	CoolVector documents: one locked object, updated when the file changes.	CoolVector ドキュメント：ロックされた 1 つのオブジェクト。ファイルの変更時に更新されます。
 	A file dialog is open: choose there first	ファイルダイアログが開いています。先にそちらで選択してください
 	The document was closed while its file dialog was open	ファイルダイアログが開いている間にドキュメントが閉じられました
 	The dialog was closed before its file dialog answered	ファイルダイアログが応答する前にダイアログが閉じられました
@@ -3409,13 +3390,10 @@ theme	Appearance	外観
 @msg	its type is to come in as outlines, which only its page has	文字をアウトラインとして読み込む設定ですが、アウトラインはページにしかありません
 @msg	{_1} files	{_1} 個のファイル
 @msg	A browser with WebGPU or WebGL2 is required.	WebGPU または WebGL2 に対応したブラウザーが必要です。
-@msg	Loading CoolVector…	CoolVector を読み込んでいます…
 @msg	Reload the page to go on (changes not saved yet may be lost).	続けるにはページを再読み込みしてください (未保存の変更は失われる場合があります)。
 @msg	The graphics were lost and couldn't be restarted.	グラフィックス機能が利用できなくなり、再起動できませんでした。
 @msg	The graphics were lost and have been restarted	グラフィックス機能が利用できなくなったため、再起動しました
-@msg	CoolVector failed to start: {e}	CoolVector を起動できませんでした: {e}
 @msg	Your unsaved changes are kept in this browser: reload the page to get them back.	未保存の変更はこのブラウザーに残っています: 復元するにはページを再読み込みしてください。
-@msg	The graphics processor tried first couldn't show the window, so CoolVector started again on {summary}	最初に試したグラフィックスプロセッサーではウィンドウを表示できなかったため、{summary} で CoolVector を再起動しました
 @msg	not a DXF drawing	DXF 図面ではありません
 @msg	scale must be a number from {_1} to {_2}, not {s}	縮尺は {_1} から {_2} までの数値にしてください ({s} は指定できません)
 @msg	the artboard to fit must be a positive size up to {_1} pt	合わせる先のアートボードのサイズは 0 より大きく {_1} pt 以下にしてください
@@ -3683,10 +3661,8 @@ theme	Appearance	外観
 @msg	it has more than {MAX_NODES} objects	オブジェクトが {MAX_NODES} 個を超えています
 @msg	it has no layers	レイヤーがありません
 @msg	it has too many values in a row	連続する値が多すぎます
-@msg	it has {_1}, which CoolVector doesn't read from it yet	{_1} が含まれていますが、CoolVector はまだこのファイルからは読み込めません
 @msg	its objects are nested too deeply	オブジェクトの入れ子が深すぎます
 @msg	its section ending with `%{end}` doesn't end	`%{end}` で終わるはずのセクションが終わっていません
-@msg	an image CoolVector can't read was left out	CoolVector で読み込めない画像は除外されました
 @msg	an image whose data is cut short was left out	データが途中で切れている画像は除外されました
 @msg	linked pictures show the low-resolution preview saved in the file until their files are found: relink them in the Links panel	リンク画像は、元のファイルが見つかるまで、ファイルに保存された低解像度のプレビューで表示されます：リンクパネルで再リンクしてください
 @msg	area type in frames too short for a line of the font it shows in got taller frames ({_1}): their type wouldn't show otherwise	表示に使われるフォントの 1 行に対して低すぎるフレーム内のエリア内文字は、フレームを高くしました ({_1}): そうしないと文字が表示されません
@@ -3703,7 +3679,6 @@ theme	Appearance	外観
 @msg	a PostScript error ({name} in `{op}`: {at})	PostScript エラー (`{op}` での {name}: {at})
 @msg	a PostScript error ({name} in `{op}`: {at}), in {procs}	{procs} 内の PostScript エラー (`{op}` での {name}: {at})
 @msg	a PostScript error ({name})	PostScript エラー ({name})
-@msg	it uses `{at}`, which CoolVector's PostScript reader doesn't know	CoolVector の PostScript 読み込み機能が対応していない `{at}` を使用しています
 @msg	the file was read up to an error ({why}): what follows it was left out	ファイルはエラーが発生した箇所まで読み込まれました ({why}): それ以降の内容は除外されました
 @msg	this file's PostScript couldn't be read ({why}): {what}	このファイルの PostScript を読み込めませんでした ({why}): {what}
 @msg	it has no page	ページがありません
@@ -3718,7 +3693,6 @@ theme	Appearance	外観
 @msg	its Windows metafile preview was opened instead, which may simplify the art	代わりに Windows メタファイルのプレビューを開いたため、アートが簡略化されている場合があります
 @msg	its preview was placed instead, at screen resolution	代わりにプレビューを画面解像度で配置しました
 @msg	shadings of more than 4096 patches or triangles were left out	パッチまたは三角形が 4096 個を超えるシェーディングは除外されました
-@msg	it uses `{at}`, which CoolVector's PostScript reader doesn't know, in {procs}	{procs} 内で、CoolVector の PostScript 読み込み機能が対応していない `{at}` を使用しています
 @msg	the export region is not finite	書き出し範囲に無効な数値が含まれています
 @msg	a page out of range	範囲外のページがあります
 @msg	a page's placement is not finite	ページの配置に無効な数値が含まれています
@@ -3727,10 +3701,7 @@ theme	Appearance	外観
 @msg	the preview image is empty	プレビュー画像が空です
 @msg	the thumbnail image is malformed	サムネール画像の形式が正しくありません
 @msg	can't encode the document: {0}	ドキュメントをエンコードできません: {0}
-@msg	can't save version {0}: CoolVector writes versions {MIN_VERSION} to {VERSION}	バージョン {0} では保存できません: CoolVector で保存できるのはバージョン {MIN_VERSION} から {VERSION} までです
-@msg	file version {0} is newer than this CoolVector supports ({VERSION})	ファイルのバージョン {0} は、この CoolVector が対応するバージョン ({VERSION}) より新しいものです
 @msg	invalid image data for `{0}`	`{0}` の画像データが正しくありません
-@msg	not a CoolVector file: {0}	CoolVector ファイルではありません: {0}
 @msg	the compressed file unpacks to more than {_1} MB	圧縮ファイルを展開すると {_1} MB を超えます
 @msg	version {0} files can't be compressed: only version {COMPRESSED_SINCE} and later open compressed files	バージョン {0} のファイルは圧縮できません: 圧縮ファイルを開けるのはバージョン {COMPRESSED_SINCE} 以降のみです
 @msg	a bitmap is empty	ビットマップが空です
@@ -3777,7 +3748,6 @@ theme	Appearance	外観
 @msg	plug-in output: {0}	プラグインの出力に問題があります: {0}
 @msg	plug-in parameters: {0}	プラグインのパラメーターに問題があります: {0}
 @msg	plug-in trapped: {0}	プラグインが異常終了しました: {0}
-@msg	is not an image CoolVector reads	CoolVector で読み込める画像ではありません
 @msg	not found	見つかりません
 @msg	SVG parse error: {0}	SVG を解析できませんでした: {0}
 @msg	decimals must be {_1}–{_2} (got {_3})	小数点以下の桁数は {_1} から {_2} までにしてください (指定値: {_3})
@@ -3953,7 +3923,6 @@ theme	Appearance	外観
 @msg	no dialog open	ダイアログが開かれていません
 @msg	no file reader	ファイルの読み込み機能がありません
 @msg	no file writer	ファイルの書き込み機能がありません
-@msg	not a CoolVector shortcut set (missing `overrides`)	CoolVector のショートカットセットではありません (`overrides` がありません)
 @msg	shortcut for `{k}` must be a string	`{k}` のショートカットは文字列で指定してください
 @msg	tool shortcuts must be a single key (optionally with Shift)	ツールのショートカットには 1 つのキーを指定してください (Shift との組み合わせも可)
 @msg	unknown preset (one of {_1})	不明なプリセットです ({_1} のいずれかを指定してください)
@@ -3973,13 +3942,10 @@ theme	Appearance	外観
 @msg	unknown workspace (one of {_1})	不明なワークスペースです ({_1} のいずれかを指定してください)
 @msg	workspace name can't be empty	ワークスペース名を入力してください
 @msg	No fonts are missing in this document	このドキュメントには見つからないフォントはありません
-@msg	CoolVector doesn't search other apps' or the system's folders: {path}	CoolVector は他のアプリやシステムのフォルダーを検索しません: {path}
-@msg	CoolVector doesn't search the Shared or Public folder in Users: {path}	CoolVector は Users 内の Shared フォルダーと Public フォルダーを検索しません: {path}
 @msg	{path} is not a folder	{path} はフォルダーではありません
 @msg	the search couldn't start: try again in a moment	検索を開始できませんでした: しばらくしてからもう一度お試しください
 @msg	searching a folder isn't available on the web	Web 版ではフォルダーを検索できません
 @msg	every search thread stopped on an internal error (please report this bug)	すべての検索スレッドが内部エラーで停止しました (このバグを報告してください)
-@msg	CoolVector's Fonts folder isn't set here: the desktop app and coolvector-cli set it	この環境では CoolVector の Fonts フォルダーが設定されていません: デスクトップアプリと coolvector-cli が設定します
 @msg	choose the font files to add	追加するフォントファイルを選択してください
 @msg	{n} font file(s) are now in {folder}	{n} 個のフォントファイルが {folder} に入りました
 @msg	{n} font file(s) are now in {folder}; {failed} couldn't be added: {reason}	{n} 個のフォントファイルが {folder} に入りましたが、{failed} 個は追加できませんでした: {reason}
@@ -4197,7 +4163,6 @@ lighting	Light	ライト
 	Artistic	アーティスティック
 	Film Grain…	フィルム粒子…
 	Highlight Area	ハイライト領域
-@msg	the compressed file unpacks to more than CoolVector reads ({_1} MB of document, {_2} MB per image)	圧縮ファイルを展開すると CoolVector が読み込める量を超えます (ドキュメント {_1} MB、画像 1 枚あたり {_2} MB)
 @msg	the document is too large to save compressed ({0}): save it with Use Compression off	ドキュメントが大きすぎて圧縮保存できません ({0}): 「圧縮を使用」をオフにして保存してください
 @msg	the file stopped being read (please report this bug)	ファイルの読み込みが中断されました (このバグを報告してください)
 	Concentric Dividers:	同心円の分割線:

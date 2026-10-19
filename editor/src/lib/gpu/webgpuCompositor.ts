@@ -1,6 +1,6 @@
 /**
  * Hardware-accelerated GPU Compositor using wgpu / WebGPU.
- * Directly based on Photocraft `crates/gpu/src/compose.wgsl` & `crates/gpu/src/lib.rs`.
+ * Based on the photo engine's `crates/gpu/src/compose.wgsl` and `crates/gpu/src/lib.rs`.
  */
 
 export interface GpuStatus {
@@ -43,7 +43,7 @@ fn vs_main(@builtin(vertex_index) vi: u32) -> VertexOutput {
   return out;
 }
 
-// Photocraft & Photoshop Blend Modes math in WGSL
+// Photoshop's blend-mode maths in WGSL
 fn blend_normal(b: vec3<f32>, l: vec3<f32>) -> vec3<f32> { return l; }
 fn blend_multiply(b: vec3<f32>, l: vec3<f32>) -> vec3<f32> { return b * l; }
 fn blend_screen(b: vec3<f32>, l: vec3<f32>) -> vec3<f32> { return 1.0 - (1.0 - b) * (1.0 - l); }

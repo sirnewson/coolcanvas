@@ -3123,7 +3123,7 @@ button.preset:hover {
 }
 
 /* ==========================================================================
-   PHOTOCRAFT PRO RIGHT DOCK & CONTROLS STYLES
+   PHOTO STUDIO RIGHT DOCK & CONTROLS
    ========================================================================== */
 
 .dock-tabs-scroll {
@@ -3153,7 +3153,7 @@ button.preset:hover {
   opacity: 0.8;
 }
 
-/* 1. Photocraft Pro Dock & Header */
+/* 1. Photo Studio dock and header */
 .dock {
   background: #ffffff;
   border-left: 1px solid #e2e8f0;
@@ -3221,7 +3221,7 @@ button.preset:hover {
   border-bottom-color: #3b82f6;
 }
 
-/* Photocraft / Image 6 Floating Card Header */
+/* Floating card header */
 .pc-props-header {
   display: flex;
   align-items: center;
@@ -5181,7 +5181,7 @@ button.preset:hover {
   border-color: #ffffff;
 }
 
-/* 9. Photocraft Pro Layers Panel */
+/* 9. Layers panel */
 .pc-layers-panel {
   display: flex;
   flex-direction: column;

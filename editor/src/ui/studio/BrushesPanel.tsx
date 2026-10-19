@@ -1,5 +1,5 @@
 /**
- * Brushes and Dynamics Panel based on Photocraft `crates/paint`.
+ * Brushes and dynamics panel, following the photo engine's `crates/paint`.
  */
 
 import { useState } from "react";

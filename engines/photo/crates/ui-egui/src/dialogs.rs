@@ -481,12 +481,10 @@ fn about_tab_body(app: &mut CoolPhotoApp, ui: &mut egui::Ui, tab: &str) {
         "contributors" => crate::credits::contributors_ui(app, ui),
         "models" => crate::credits::models_ui(ui),
         _ => {
-            ui.label(tl!("CoolPhoto — an open-source, native image editor written in Rust."));
+            ui.label(tl!("Photo Studio — CoolCanvas's raster editor, native and written in Rust."));
             ui.label(crate::i18n::fmt(tl!("Version {version}"), &[("version", &coolphoto_engine::build_info::long_version())]));
             ui.add_space(12.0);
             ui.vertical_centered(|ui| {
-                crate::links::discord_button(app, ui, 220.0);
-                ui.add_space(8.0);
                 crate::links::link_row(app, ui);
             });
             ui.add_space(10.0);
@@ -513,7 +511,7 @@ pub fn title(d: &Dialog) -> String {
     match d.kind {
         DialogKind::NewDocument => "New Document".into(),
         DialogKind::About if d.fields.get("systemInfo").and_then(Value::as_bool) == Some(true) => "System Info".into(),
-        DialogKind::About => "About CoolPhoto".into(),
+        DialogKind::About => "About Photo Studio".into(),
         DialogKind::LayerStyle => "Layer Style".into(),
         DialogKind::Command => d.fields.get("__label").and_then(Value::as_str).unwrap_or("Command").trim_end_matches('…').to_string(),
         DialogKind::Error => "Error".into(),

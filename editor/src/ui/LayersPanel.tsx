@@ -553,7 +553,7 @@ export function LayersPanel() {
 
   return (
     <div className="pc-layers-panel">
-      {/* 1. Photoshop & Photocraft Header: Blend Mode + Opacity + Fill */}
+      {/* 1. Header: blend mode, opacity, fill */}
       <div className="pc-layers-header">
         <div className="pc-blend-row">
           <select
@@ -713,7 +713,7 @@ export function LayersPanel() {
         )}
       </div>
 
-      {/* 4. Photocraft & Photoshop Bottom Action Strip */}
+      {/* 4. Bottom action strip */}
       <div className="pc-layers-footer">
         {/* Send Backward / Down */}
         <button

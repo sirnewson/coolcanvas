@@ -1,5 +1,6 @@
-//! The CoolPhoto brand mark at the left of the title bar: the app icon (the kitsune,
-//! `assets/app-icon/`, see its README), where Photoshop shows its "Ps" tile. The PNG carries the
+//! Photo Studio's mark at the left of the title bar, where Photoshop shows its "Ps" tile:
+//! CoolCanvas's own app icon (`assets/app-icon/`, drawn by `scripts/make-icons.mjs`; the
+//! upstream's trademarked mark was removed). The PNG carries the
 //! icon's rounded corners; it is decoded once per context into a mipmapped texture, so it stays
 //! crisp at the title bar's size on any display scale.
 

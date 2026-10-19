@@ -266,7 +266,7 @@ fn category_fields(ui: &mut egui::Ui, d: &mut Dialog, cat: &str) {
                 if cfg!(all(not(target_arch = "wasm32"), not(target_os = "macos"))) {
                     bool_row(ui, d, sp.key, sp.label);
                     // The window's decorations are chosen once, when the app starts.
-                    ui.label(egui::RichText::new(tl!("Applies the next time CoolVector starts.")).color(t.text_dim).size(11.0));
+                    ui.label(egui::RichText::new(tl!("Applies the next time Vector Studio starts.")).color(t.text_dim).size(11.0));
                 }
             }
             PrefKind::Bool => bool_row(ui, d, sp.key, sp.label),
@@ -319,7 +319,7 @@ fn category_fields(ui: &mut egui::Ui, d: &mut Dialog, cat: &str) {
                 });
                 if sp.key == "gpuPreference" || sp.key == "linuxDisplayServer" {
                     // The window's graphics device and display server are chosen once, when the app starts.
-                    ui.label(egui::RichText::new(tl!("Applies the next time CoolVector starts.")).color(t.text_dim).size(11.0));
+                    ui.label(egui::RichText::new(tl!("Applies the next time Vector Studio starts.")).color(t.text_dim).size(11.0));
                 }
             }
             PrefKind::Color => {
@@ -388,6 +388,23 @@ mod tests {
     use super::*;
     use crate::Services;
     use coolvector_engine::Session;
+
+    /// A fresh studio opens in CoolCanvas's own light theme, matching the board it opened from.
+    ///
+    /// `apply_runtime` copies the engine's `uiBrightness` preference over `UiState::default()`
+    /// every frame, so the engine default is what actually decides this. It read "mediumDark"
+    /// once, and a brand-new web studio opened dark while the native one did not.
+    #[test]
+    fn a_fresh_studio_opens_in_the_coolcanvas_theme() {
+        let mut app = CoolVectorApp::new(Session::new(), Services::default());
+        assert_eq!(app.ui.brightness, Brightness::CoolCanvas, "UiState::default()");
+        assert_eq!(Brightness::parse(&app.session.prefs.ui_brightness), Some(Brightness::CoolCanvas), "the engine preference");
+        let ctx = egui::Context::default();
+        crate::theme::install_fonts(&ctx);
+        apply_runtime(&mut app, &ctx);
+        assert_eq!(app.ui.brightness, Brightness::CoolCanvas, "after a frame of apply_runtime");
+        assert!(!theme::Tokens::for_brightness(app.ui.brightness).dark, "the fresh studio is light");
+    }
 
     /// A resting checkbox must have a visible outline in both states and every brightness.
     #[test]
@@ -555,7 +572,7 @@ mod tests {
         out.shapes.iter().for_each(|c| texts(&c.shape, &mut shown));
         assert!(shown.iter().any(|t| t.starts_with("Graphics Processor")), "{shown:?}");
         assert!(shown.iter().any(|t| t == "Automatic"), "{shown:?}");
-        assert!(shown.iter().any(|t| t == "Applies the next time CoolVector starts."), "{shown:?}");
+        assert!(shown.iter().any(|t| t == "Applies the next time Vector Studio starts."), "{shown:?}");
         a.ui.dialog.as_mut().unwrap().fields.insert("gpuPreference".into(), json!("highPerformance"));
         confirm(&mut a).unwrap();
         assert_eq!(a.session.prefs.gpu_preference, "highPerformance");
@@ -587,7 +604,7 @@ mod tests {
         out.shapes.iter().for_each(|c| texts(&c.shape, &mut shown));
         let supported = cfg!(all(not(target_arch = "wasm32"), not(target_os = "macos")));
         assert_eq!(shown.iter().any(|t| t == "System Title Bar"), supported, "{shown:?}");
-        assert_eq!(shown.iter().any(|t| t == "Applies the next time CoolVector starts."), supported, "{shown:?}");
+        assert_eq!(shown.iter().any(|t| t == "Applies the next time Vector Studio starts."), supported, "{shown:?}");
         a.ui.dialog.as_mut().unwrap().fields.insert("systemTitleBar".into(), json!(true));
         confirm(&mut a).unwrap();
         assert!(a.session.prefs.system_title_bar);

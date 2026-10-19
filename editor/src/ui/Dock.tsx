@@ -3,10 +3,10 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import { useStore, type DockTab } from "../store/store";
 import { Inspector } from "./Inspector";
 import { LayersPanel } from "./LayersPanel";
-import { AdjustmentsPanel } from "./photocraft/AdjustmentsPanel";
-import { TypographyPanel } from "./photocraft/TypographyPanel";
-import { ColorPanel } from "./photocraft/ColorPanel";
-import { BrushesPanel } from "./photocraft/BrushesPanel";
+import { AdjustmentsPanel } from "./studio/AdjustmentsPanel";
+import { TypographyPanel } from "./studio/TypographyPanel";
+import { ColorPanel } from "./studio/ColorPanel";
+import { BrushesPanel } from "./studio/BrushesPanel";
 import { CanvasSettings } from "./CanvasSettings";
 import { Assistant } from "./Assistant";
 import { EffectsPanel } from "./EffectsPanel";
@@ -96,7 +96,7 @@ export function DockTabs({
 }
 
 /**
- * Photocraft Pro Right Dock: Properties, Adjustments, Layers, Typography, Color, Setup.
+ * The Photo Studio dock: Properties, Adjustments, Layers, Typography, Color, Setup.
  * Stretchable & resizable via drag handle on left edge.
  */
 export function Dock() {
