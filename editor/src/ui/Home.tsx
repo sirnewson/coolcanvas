@@ -313,7 +313,7 @@ export function Home({ onOpenSpatial }: { onOpenSpatial?: () => void }) {
 
         {showAll && (
           <section className="hm-hero">
-            <img className="hm-hero-art" src="./hero-banner.png" alt="" draggable={false} />
+            <img className="hm-hero-art" src={`${import.meta.env.BASE_URL}hero-banner.png`} alt="" draggable={false} />
             <div className="hm-hero-copy">
               <p className="kicker">Visual thinking for a brighter tomorrow</p>
               <h1>
